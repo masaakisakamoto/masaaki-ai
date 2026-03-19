@@ -19,7 +19,7 @@ export default function Home() {
           <a href="/projects" className="border px-4 py-2">
             Projects
           </a>
-          <a href="https://github.com/xxxx" target="_blank" rel="noopener noreferrer" className="border px-4 py-2">
+          <a href="https://github.com/masaakisakamoto" target="_blank" rel="noopener noreferrer" className="border px-4 py-2">
             GitHub
           </a>
           <a href="https://x.com/masaaki_s" target="_blank" rel="noopener noreferrer" className="border px-4 py-2">
