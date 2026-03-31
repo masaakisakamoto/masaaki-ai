@@ -1,13 +1,26 @@
+import Link from "next/link";
+
 export default function LabsPage() {
   return (
     <main className="min-h-screen bg-white text-black px-6 py-16">
-      
+
       {/* Header */}
       <div className="flex justify-between items-center text-sm text-gray-400">
-        <p className="uppercase tracking-[0.2em]">MASAAKI AI</p>
-        <a href="/projects" className="hover:opacity-60">
-          Projects
-        </a>
+        <Link
+          href="/"
+          className="uppercase tracking-[0.2em] transition hover:text-black"
+        >
+          MASAAKI AI
+        </Link>
+
+        <div className="flex items-center gap-6">
+          <Link href="/projects" className="hover:text-black transition">
+            Projects
+          </Link>
+          <Link href="/labs" className="hover:text-black transition">
+            Labs
+          </Link>
+        </div>
       </div>
 
       {/* Hero */}

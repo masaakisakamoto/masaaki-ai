@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import React, { Fragment, useState } from "react"
 
 type Locale = "en" | "ja"
@@ -340,17 +341,15 @@ function LocaleToggle({ locale, onChange }: { locale: Locale; onChange: (locale:
     <div className="flex items-center rounded-full border border-neutral-800 p-1 text-[11px] uppercase tracking-[0.2em] text-neutral-500">
       <button
         onClick={() => onChange("en")}
-        className={`rounded-full px-3 py-1 transition ${
-          locale === "en" ? "bg-neutral-100 text-neutral-950" : "text-neutral-500 hover:text-neutral-200"
-        }`}
+        className={`rounded-full px-3 py-1 transition ${locale === "en" ? "bg-neutral-100 text-neutral-950" : "text-neutral-500 hover:text-neutral-200"
+          }`}
       >
         EN
       </button>
       <button
         onClick={() => onChange("ja")}
-        className={`rounded-full px-3 py-1 transition ${
-          locale === "ja" ? "bg-neutral-100 text-neutral-950" : "text-neutral-500 hover:text-neutral-200"
-        }`}
+        className={`rounded-full px-3 py-1 transition ${locale === "ja" ? "bg-neutral-100 text-neutral-950" : "text-neutral-500 hover:text-neutral-200"
+          }`}
       >
         日本語
       </button>
@@ -488,12 +487,30 @@ export default function ProjectsExperience() {
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
       <div className="mx-auto max-w-5xl px-6 py-20">
         <div className="mb-24 flex items-start justify-between gap-6">
-          <section>
-            <h1 className="text-3xl tracking-tight">{copy.pageTitle[locale]}</h1>
-            <p className="mt-6 text-sm text-neutral-500">{copy.pageSubtitle[locale]}</p>
-          </section>
+          <div>
+            <Link
+              href="/"
+              className="text-xs uppercase tracking-[0.22em] text-neutral-500 transition hover:text-neutral-200"
+            >
+              MASAAKI AI
+            </Link>
 
-          <LocaleToggle locale={locale} onChange={setLocale} />
+            <section className="mt-6">
+              <h1 className="text-3xl tracking-tight">{copy.pageTitle[locale]}</h1>
+              <p className="mt-6 text-sm text-neutral-500">{copy.pageSubtitle[locale]}</p>
+            </section>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <Link
+              href="/labs"
+              className="text-sm text-neutral-500 transition hover:text-neutral-200"
+            >
+              Labs
+            </Link>
+
+            <LocaleToggle locale={locale} onChange={setLocale} />
+          </div>
         </div>
 
         <section className="space-y-10">
@@ -514,28 +531,25 @@ export default function ProjectsExperience() {
 
                 <button
                   onClick={() => setSelectedSlug(project.slug)}
-                  className={`group block w-full rounded-2xl border p-8 text-left transition-all duration-500 ${
-                    isCore
+                  className={`group block w-full rounded-2xl border p-8 text-left transition-all duration-500 ${isCore
                       ? "border-neutral-700 bg-neutral-900/50 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] hover:border-neutral-500 hover:bg-neutral-900/70"
                       : "border-neutral-800 hover:border-neutral-600 hover:bg-neutral-900/40"
-                  }`}
+                    }`}
                 >
                   <p className={`text-xs uppercase tracking-[0.2em] ${isCore ? "text-neutral-400" : "text-neutral-600"}`}>
                     {project.type[locale]}
                   </p>
 
                   <h2
-                    className={`mt-2 tracking-tight transition-transform duration-500 group-hover:translate-x-1 ${
-                      isCore ? "text-3xl sm:text-[2rem]" : "text-2xl"
-                    }`}
+                    className={`mt-2 tracking-tight transition-transform duration-500 group-hover:translate-x-1 ${isCore ? "text-3xl sm:text-[2rem]" : "text-2xl"
+                      }`}
                   >
                     {project.name[locale]}
                   </h2>
 
                   <p
-                    className={`mt-6 max-w-lg leading-relaxed transition-opacity duration-500 group-hover:opacity-80 ${
-                      isCore ? "text-[1.05rem] text-neutral-200" : "text-base text-neutral-300"
-                    }`}
+                    className={`mt-6 max-w-lg leading-relaxed transition-opacity duration-500 group-hover:opacity-80 ${isCore ? "text-[1.05rem] text-neutral-200" : "text-base text-neutral-300"
+                      }`}
                   >
                     {project.oneLine[locale]}
                   </p>
