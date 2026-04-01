@@ -70,18 +70,29 @@ export default function LabsPage() {
         </div>
 
         {/* Card 2 */}
-        <div className="rounded-[28px] border border-dashed border-gray-200 p-10 text-gray-400">
-          <p className="text-xs uppercase tracking-[0.25em]">
-            Future Lab
+        <div className="rounded-[28px] border border-gray-200 p-10 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition duration-300">
+          <p className="text-xs uppercase tracking-[0.25em] text-gray-400">
+            Lab 02
           </p>
 
           <h2 className="mt-4 text-2xl font-semibold tracking-tight">
-            Coming next
+            Fukaya Proposal Prototype
           </h2>
 
-          <p className="mt-5 leading-relaxed">
-            More experimental systems will appear here over time.
+          <p className="mt-5 text-gray-500 leading-relaxed">
+            A consultation prototype currently validating the minimum core experience.
+            It is designed as an early proposal for Fukaya City, with room to evolve into
+            a more playful experience that communicates the city’s charm.
           </p>
+
+          <a
+            href="https://fukkachan-ai.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-block text-sm text-black hover:opacity-60"
+          >
+            View prototype →
+          </a>
         </div>
 
       </section>
