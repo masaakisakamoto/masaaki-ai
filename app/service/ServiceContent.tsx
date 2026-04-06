@@ -7,22 +7,17 @@ const copy = {
   en: {
     site: "MASAAKI AI",
 
-    eyebrow: "Labs",
-    title1: "Experimental systems,",
-    title2: "long-term explorations.",
-    body1: "Early systems, prototypes, and foundations",
-    body2: "I’m building over time.",
+    eyebrow: "Service",
+    title1: "Production services,",
+    title2: "actively shipped.",
+    body1: "Services built for real use,",
+    body2: "with clarity, care, and long-term potential.",
 
-    lab01: "Lab 01",
-    lab01Title: "Motion Engine",
-    lab01Body: "An AI foundation for making human movement visible.",
-    lab01Link: "Visit motionengine.ai →",
-
-    lab02: "Lab 02",
-    lab02Title: "Fukaya Proposal Prototype",
-    lab02Body:
-      "A consultation prototype currently validating the minimum core experience. Designed as an early proposal for Fukaya City, with room to evolve into a more playful experience that communicates the city’s charm.",
-    lab02Link: "View prototype →",
+    service01: "Service 01",
+    service01Title: "Line Portrait",
+    service01Body:
+      "A simple AI portrait service that transforms a photo into a minimal line-based illustration.",
+    service01Link: "Visit lineportrait.ai →",
 
     toggleEn: "EN",
     toggleJa: "JA",
@@ -30,36 +25,30 @@ const copy = {
   ja: {
     site: "MASAAKI AI",
 
-    eyebrow: "Labs",
-    title1: "Experimental systems,",
-    title2: "long-term explorations.",
-    body1: "Early systems, prototypes, and foundations",
-    body2: "I’m building over time.",
+    eyebrow: "Service",
+    title1: "Production services,",
+    title2: "actively shipped.",
+    body1: "実際の利用を前提に、",
+    body2: "丁寧に育てているサービスです。",
 
-    lab01: "Lab 01",
-    lab01Title: "Motion Engine",
-    lab01Body: "人の動きを見える化していくためのAI基盤です。",
-    lab01Link: "motionengine.aiを見る →",
-
-    lab02: "Lab 02",
-    lab02Title: "深谷市 提案プロトタイプ",
-    lab02Body:
-      "これは相談用のプロトタイプです。現在は体験の核となる最小構成で検証しています。今後は、深谷市の魅力をより楽しく伝えられる体験へ発展させることを想定しています。",
-    lab02Link: "プロトタイプを見る →",
+    service01: "Service 01",
+    service01Title: "Line Portrait",
+    service01Body:
+      "写真をミニマルなラインベースの似顔絵へ変換する、シンプルなAIポートレートサービスです。",
+    service01Link: "lineportrait.aiを見る →",
 
     toggleEn: "EN",
     toggleJa: "JA",
   },
 } as const;
 
-export default function LabsContent() {
+export default function ServiceContent() {
   const searchParams = useSearchParams();
   const lang = searchParams.get("lang") === "ja" ? "ja" : "en";
   const t = copy[lang];
 
   return (
     <main className="min-h-screen bg-white text-black px-6 py-16">
-      {/* Header（シンプル版） */}
       <div className="flex justify-between items-center text-sm text-gray-400">
         <Link
           href="/"
@@ -68,10 +57,9 @@ export default function LabsContent() {
           {t.site}
         </Link>
 
-        {/* 言語切替のみ */}
         <div className="inline-flex rounded-full border border-black/10 bg-white p-1 shadow-sm">
           <Link
-            href="/labs?lang=en"
+            href="/service?lang=en"
             className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
               lang === "en"
                 ? "bg-black text-white"
@@ -81,7 +69,7 @@ export default function LabsContent() {
             {t.toggleEn}
           </Link>
           <Link
-            href="/labs?lang=ja"
+            href="/service?lang=ja"
             className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
               lang === "ja"
                 ? "bg-black text-white"
@@ -93,7 +81,6 @@ export default function LabsContent() {
         </div>
       </div>
 
-      {/* Hero */}
       <section className="mt-20 max-w-4xl">
         <p className="text-xs uppercase tracking-[0.25em] text-gray-400">
           {t.eyebrow}
@@ -112,51 +99,27 @@ export default function LabsContent() {
         </p>
       </section>
 
-      {/* Cards */}
       <section className="mt-20 grid md:grid-cols-2 gap-12 max-w-4xl">
         <div className="rounded-[28px] border border-gray-200 p-10 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition duration-300">
           <p className="text-xs uppercase tracking-[0.25em] text-gray-400">
-            {t.lab01}
+            {t.service01}
           </p>
 
           <h2 className="mt-4 text-2xl font-semibold tracking-tight">
-            {t.lab01Title}
+            {t.service01Title}
           </h2>
 
           <p className="mt-5 text-gray-500 leading-relaxed">
-            {t.lab01Body}
+            {t.service01Body}
           </p>
 
           <a
-            href="https://motionengine.ai"
+            href="https://www.lineportrait.ai"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 inline-block text-sm text-black hover:opacity-60"
           >
-            {t.lab01Link}
-          </a>
-        </div>
-
-        <div className="rounded-[28px] border border-gray-200 p-10 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition duration-300">
-          <p className="text-xs uppercase tracking-[0.25em] text-gray-400">
-            {t.lab02}
-          </p>
-
-          <h2 className="mt-4 text-2xl font-semibold tracking-tight">
-            {t.lab02Title}
-          </h2>
-
-          <p className="mt-5 text-gray-500 leading-relaxed">
-            {t.lab02Body}
-          </p>
-
-          <a
-            href="https://fukkachan-ai.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-block text-sm text-black hover:opacity-60"
-          >
-            {t.lab02Link}
+            {t.service01Link}
           </a>
         </div>
       </section>
