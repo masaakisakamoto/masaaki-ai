@@ -24,40 +24,51 @@ export default function Home() {
           <p className="mt-2 text-sm text-gray-700">
             Where trust meets human potential
           </p>
-          <p className="text-sm text-gray-700">
-            — powered by Human × AI
-          </p>
+          <p className="text-sm text-gray-700">— powered by Human × AI</p>
         </div>
 
-        <div className="flex gap-4 justify-center mt-6 flex-wrap">
-          <a
-            href="/projects"
-            className="border px-4 py-2 transition hover:bg-black hover:text-white"
-          >
-            Projects
-          </a>
-          <a
-            href="/labs"
-            className="border px-4 py-2 transition hover:bg-black hover:text-white"
-          >
-            Labs
-          </a>
-          <a
-            href="https://github.com/masaakisakamoto"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border px-4 py-2 transition hover:bg-black hover:text-white"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://x.com/masaaki_s"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border px-4 py-2 transition hover:bg-black hover:text-white"
-          >
-            X
-          </a>
+        <div className="mt-8 space-y-4">
+          {/* 上段 */}
+          <div className="flex justify-center gap-4">
+            <a
+              href="/service"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+            >
+              Service
+            </a>
+            <a
+              href="/projects"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+            >
+              Projects
+            </a>
+            <a
+              href="/labs"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+            >
+              Labs
+            </a>
+          </div>
+
+          {/* 下段 */}
+          <div className="flex justify-center gap-4">
+            <a
+              href="https://github.com/masaakisakamoto"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://x.com/masaaki_s"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+            >
+              X
+            </a>
+          </div>
         </div>
       </section>
     </main>
