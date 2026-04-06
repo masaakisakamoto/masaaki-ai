@@ -78,8 +78,8 @@ const copy: Copy = {
     ja: "プロジェクト",
   },
   pageSubtitle: {
-    en: "Still early.",
-    ja: "まだ、はじまりの途中。",
+    en: "Still early — steadily building.",
+    ja: "まだ始まったばかり。でも着実に積み上げている",
   },
   otherProjects: {
     en: "Other Projects",
@@ -336,22 +336,34 @@ const projects: Project[] = [
   },
 ]
 
-function LocaleToggle({ locale, onChange }: { locale: Locale; onChange: (locale: Locale) => void }) {
+function LocaleToggle({
+  locale,
+  onChange,
+}: {
+  locale: Locale
+  onChange: (locale: Locale) => void
+}) {
   return (
-    <div className="flex items-center rounded-full border border-neutral-800 p-1 text-[11px] uppercase tracking-[0.2em] text-neutral-500">
+    <div className="inline-flex rounded-full border border-black/10 bg-white p-1 shadow-sm">
       <button
         onClick={() => onChange("en")}
-        className={`rounded-full px-3 py-1 transition ${locale === "en" ? "bg-neutral-100 text-neutral-950" : "text-neutral-500 hover:text-neutral-200"
-          }`}
+        className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
+          locale === "en"
+            ? "bg-black text-white"
+            : "text-neutral-500 hover:text-black"
+        }`}
       >
         EN
       </button>
       <button
         onClick={() => onChange("ja")}
-        className={`rounded-full px-3 py-1 transition ${locale === "ja" ? "bg-neutral-100 text-neutral-950" : "text-neutral-500 hover:text-neutral-200"
-          }`}
+        className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
+          locale === "ja"
+            ? "bg-black text-white"
+            : "text-neutral-500 hover:text-black"
+        }`}
       >
-        日本語
+        JA
       </button>
     </div>
   )
@@ -401,11 +413,19 @@ export default function ProjectsExperience() {
           </div>
 
           <header className="mb-24 border-b border-neutral-800 pb-8">
-            <p className="text-xs uppercase tracking-[0.2em] text-neutral-600">{selected.type[locale]}</p>
-            <h1 className="mt-3 text-4xl tracking-tight sm:text-5xl">{selected.name[locale]}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-300">{selected.oneLine[locale]}</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-neutral-600">
+              {selected.type[locale]}
+            </p>
+            <h1 className="mt-3 text-4xl tracking-tight sm:text-5xl">
+              {selected.name[locale]}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-300">
+              {selected.oneLine[locale]}
+            </p>
             <div className="mt-8 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-neutral-500">
-              <span className="rounded-full border border-neutral-800 px-3 py-1">{selected.status[locale]}</span>
+              <span className="rounded-full border border-neutral-800 px-3 py-1">
+                {selected.status[locale]}
+              </span>
               <span>{selected.evolution[locale]}</span>
             </div>
           </header>
@@ -423,8 +443,12 @@ export default function ProjectsExperience() {
                   lines={[copy.detail.aiInsight1[locale], copy.detail.aiInsight2[locale]]}
                 />
 
-                <Section title={copy.labels.field[locale]}>{selected.field?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.focus[locale]}>{selected.focus?.[locale] ?? ""}</Section>
+                <Section title={copy.labels.field[locale]}>
+                  {selected.field?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.focus[locale]}>
+                  {selected.focus?.[locale] ?? ""}
+                </Section>
 
                 <MultiLineSection
                   title={copy.labels.approach[locale]}
@@ -436,7 +460,9 @@ export default function ProjectsExperience() {
                 />
 
                 <section>
-                  <p className="text-xs uppercase tracking-[0.2em] text-neutral-600">{copy.labels.evolution[locale]}</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-neutral-600">
+                    {copy.labels.evolution[locale]}
+                  </p>
                   <div className="mt-5 space-y-3 max-w-2xl text-base leading-8 text-neutral-300">
                     <p>{copy.detail.aiEvolution1[locale]}</p>
                     <p className="text-neutral-500">→</p>
@@ -446,31 +472,63 @@ export default function ProjectsExperience() {
                   </div>
                 </section>
 
-                <Section title={copy.labels.reflection[locale]}>{copy.detail.aiReflection[locale]}</Section>
+                <Section title={copy.labels.reflection[locale]}>
+                  {copy.detail.aiReflection[locale]}
+                </Section>
               </>
             ) : selected.slug === "private-client-app" ? (
               <>
-                <Section title={copy.labels.why[locale]}>{copy.detail.clientWhy[locale]}</Section>
-                <Section title={copy.labels.stack[locale]}>{selected.stack?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.scope[locale]}>{selected.scope?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.system[locale]}>{selected.system?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.reflection[locale]}>{copy.detail.clientReflection[locale]}</Section>
+                <Section title={copy.labels.why[locale]}>
+                  {copy.detail.clientWhy[locale]}
+                </Section>
+                <Section title={copy.labels.stack[locale]}>
+                  {selected.stack?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.scope[locale]}>
+                  {selected.scope?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.system[locale]}>
+                  {selected.system?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.reflection[locale]}>
+                  {copy.detail.clientReflection[locale]}
+                </Section>
               </>
             ) : selected.slug === "mimamori" ? (
               <>
-                <Section title={copy.labels.context[locale]}>{copy.detail.mimamoriContext[locale]}</Section>
-                <Section title={copy.labels.stack[locale]}>{selected.stack?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.scope[locale]}>{selected.scope?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.system[locale]}>{selected.system?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.reflection[locale]}>{copy.detail.mimamoriReflection[locale]}</Section>
+                <Section title={copy.labels.context[locale]}>
+                  {copy.detail.mimamoriContext[locale]}
+                </Section>
+                <Section title={copy.labels.stack[locale]}>
+                  {selected.stack?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.scope[locale]}>
+                  {selected.scope?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.system[locale]}>
+                  {selected.system?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.reflection[locale]}>
+                  {copy.detail.mimamoriReflection[locale]}
+                </Section>
               </>
             ) : (
               <>
-                <Section title={copy.labels.origin[locale]}>{copy.detail.oceanOrigin[locale]}</Section>
-                <Section title={copy.labels.stack[locale]}>{selected.stack?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.scope[locale]}>{selected.scope?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.system[locale]}>{selected.system?.[locale] ?? ""}</Section>
-                <Section title={copy.labels.reflection[locale]}>{copy.detail.oceanReflection[locale]}</Section>
+                <Section title={copy.labels.origin[locale]}>
+                  {copy.detail.oceanOrigin[locale]}
+                </Section>
+                <Section title={copy.labels.stack[locale]}>
+                  {selected.stack?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.scope[locale]}>
+                  {selected.scope?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.system[locale]}>
+                  {selected.system?.[locale] ?? ""}
+                </Section>
+                <Section title={copy.labels.reflection[locale]}>
+                  {copy.detail.oceanReflection[locale]}
+                </Section>
               </>
             )}
           </main>
@@ -501,16 +559,7 @@ export default function ProjectsExperience() {
             </section>
           </div>
 
-          <div className="flex items-center gap-6">
-            <Link
-              href="/labs"
-              className="text-sm text-neutral-500 transition hover:text-neutral-200"
-            >
-              Labs
-            </Link>
-
-            <LocaleToggle locale={locale} onChange={setLocale} />
-          </div>
+          <LocaleToggle locale={locale} onChange={setLocale} />
         </div>
 
         <section className="space-y-10">
@@ -531,25 +580,32 @@ export default function ProjectsExperience() {
 
                 <button
                   onClick={() => setSelectedSlug(project.slug)}
-                  className={`group block w-full rounded-2xl border p-8 text-left transition-all duration-500 ${isCore
+                  className={`group block w-full rounded-2xl border p-8 text-left transition-all duration-500 ${
+                    isCore
                       ? "border-neutral-700 bg-neutral-900/50 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] hover:border-neutral-500 hover:bg-neutral-900/70"
                       : "border-neutral-800 hover:border-neutral-600 hover:bg-neutral-900/40"
-                    }`}
+                  }`}
                 >
-                  <p className={`text-xs uppercase tracking-[0.2em] ${isCore ? "text-neutral-400" : "text-neutral-600"}`}>
+                  <p
+                    className={`text-xs uppercase tracking-[0.2em] ${
+                      isCore ? "text-neutral-400" : "text-neutral-600"
+                    }`}
+                  >
                     {project.type[locale]}
                   </p>
 
                   <h2
-                    className={`mt-2 tracking-tight transition-transform duration-500 group-hover:translate-x-1 ${isCore ? "text-3xl sm:text-[2rem]" : "text-2xl"
-                      }`}
+                    className={`mt-2 tracking-tight transition-transform duration-500 group-hover:translate-x-1 ${
+                      isCore ? "text-3xl sm:text-[2rem]" : "text-2xl"
+                    }`}
                   >
                     {project.name[locale]}
                   </h2>
 
                   <p
-                    className={`mt-6 max-w-lg leading-relaxed transition-opacity duration-500 group-hover:opacity-80 ${isCore ? "text-[1.05rem] text-neutral-200" : "text-base text-neutral-300"
-                      }`}
+                    className={`mt-6 max-w-lg leading-relaxed transition-opacity duration-500 group-hover:opacity-80 ${
+                      isCore ? "text-[1.05rem] text-neutral-200" : "text-base text-neutral-300"
+                    }`}
                   >
                     {project.oneLine[locale]}
                   </p>
