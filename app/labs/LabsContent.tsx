@@ -8,8 +8,8 @@ const copy = {
     site: "MASAAKI AI",
 
     eyebrow: "Labs",
-    title1: "Experimental systems,",
-    title2: "long-term explorations.",
+    title1: "Where something begins",
+    title2: "to take shape.",
     body1: "Early systems, prototypes, and foundations",
     body2: "I’m building over time.",
 
@@ -31,8 +31,8 @@ const copy = {
     site: "MASAAKI AI",
 
     eyebrow: "Labs",
-    title1: "Experimental systems,",
-    title2: "long-term explorations.",
+    title1: "何かが形になり始める",
+    title2: "場所",
     body1: "Early systems, prototypes, and foundations",
     body2: "I’m building over time.",
 
@@ -72,21 +72,19 @@ export default function LabsContent() {
         <div className="inline-flex rounded-full border border-black/10 bg-white p-1 shadow-sm">
           <Link
             href="/labs?lang=en"
-            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
-              lang === "en"
-                ? "bg-black text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
+            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${lang === "en"
+              ? "bg-black text-white"
+              : "text-neutral-500 hover:text-black"
+              }`}
           >
             {t.toggleEn}
           </Link>
           <Link
             href="/labs?lang=ja"
-            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
-              lang === "ja"
-                ? "bg-black text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
+            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${lang === "ja"
+              ? "bg-black text-white"
+              : "text-neutral-500 hover:text-black"
+              }`}
           >
             {t.toggleJa}
           </Link>
@@ -159,6 +157,26 @@ export default function LabsContent() {
             {t.lab02Link}
           </a>
         </div>
+      </section>
+
+      {/* Contact */}
+      <section className="mt-24 text-center space-y-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
+          Contact
+        </p>
+
+        <p className="text-[15px] text-gray-500 leading-relaxed">
+          {lang === "ja"
+            ? "もし何か共鳴するものがあれば"
+            : "If this resonates, we can explore further."}
+        </p>
+
+        <a
+          href="mailto:labs@masaaki.ai?subject=Labs%20Inquiry%20from%20masaaki.ai"
+          className="text-xs text-gray-400 underline underline-offset-4 transition hover:opacity-60"
+        >
+          labs@masaaki.ai
+        </a>
       </section>
     </main>
   );

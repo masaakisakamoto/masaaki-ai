@@ -78,8 +78,8 @@ const copy: Copy = {
     ja: "プロジェクト",
   },
   pageSubtitle: {
-    en: "Still early — steadily building.",
-    ja: "まだ始まったばかり。でも着実に積み上げている",
+    en: "Still early — but something is already unfolding.",
+    ja: "まだ始まったばかり。でも、何かはもう動き出している",
   },
   otherProjects: {
     en: "Other Projects",
@@ -347,21 +347,19 @@ function LocaleToggle({
     <div className="inline-flex rounded-full border border-black/10 bg-white p-1 shadow-sm">
       <button
         onClick={() => onChange("en")}
-        className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
-          locale === "en"
-            ? "bg-black text-white"
-            : "text-neutral-500 hover:text-black"
-        }`}
+        className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${locale === "en"
+          ? "bg-black text-white"
+          : "text-neutral-500 hover:text-black"
+          }`}
       >
         EN
       </button>
       <button
         onClick={() => onChange("ja")}
-        className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
-          locale === "ja"
-            ? "bg-black text-white"
-            : "text-neutral-500 hover:text-black"
-        }`}
+        className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${locale === "ja"
+          ? "bg-black text-white"
+          : "text-neutral-500 hover:text-black"
+          }`}
       >
         JA
       </button>
@@ -580,32 +578,28 @@ export default function ProjectsExperience() {
 
                 <button
                   onClick={() => setSelectedSlug(project.slug)}
-                  className={`group block w-full rounded-2xl border p-8 text-left transition-all duration-500 ${
-                    isCore
-                      ? "border-neutral-700 bg-neutral-900/50 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] hover:border-neutral-500 hover:bg-neutral-900/70"
-                      : "border-neutral-800 hover:border-neutral-600 hover:bg-neutral-900/40"
-                  }`}
+                  className={`group block w-full rounded-2xl border p-8 text-left transition-all duration-500 ${isCore
+                    ? "border-neutral-700 bg-neutral-900/50 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] hover:border-neutral-500 hover:bg-neutral-900/70"
+                    : "border-neutral-800 hover:border-neutral-600 hover:bg-neutral-900/40"
+                    }`}
                 >
                   <p
-                    className={`text-xs uppercase tracking-[0.2em] ${
-                      isCore ? "text-neutral-400" : "text-neutral-600"
-                    }`}
+                    className={`text-xs uppercase tracking-[0.2em] ${isCore ? "text-neutral-400" : "text-neutral-600"
+                      }`}
                   >
                     {project.type[locale]}
                   </p>
 
                   <h2
-                    className={`mt-2 tracking-tight transition-transform duration-500 group-hover:translate-x-1 ${
-                      isCore ? "text-3xl sm:text-[2rem]" : "text-2xl"
-                    }`}
+                    className={`mt-2 tracking-tight transition-transform duration-500 group-hover:translate-x-1 ${isCore ? "text-3xl sm:text-[2rem]" : "text-2xl"
+                      }`}
                   >
                     {project.name[locale]}
                   </h2>
 
                   <p
-                    className={`mt-6 max-w-lg leading-relaxed transition-opacity duration-500 group-hover:opacity-80 ${
-                      isCore ? "text-[1.05rem] text-neutral-200" : "text-base text-neutral-300"
-                    }`}
+                    className={`mt-6 max-w-lg leading-relaxed transition-opacity duration-500 group-hover:opacity-80 ${isCore ? "text-[1.05rem] text-neutral-200" : "text-base text-neutral-300"
+                      }`}
                   >
                     {project.oneLine[locale]}
                   </p>
@@ -680,6 +674,26 @@ export default function ProjectsExperience() {
           <p className="mb-4">{copy.footerList[locale]}</p>
           <p className="text-neutral-500">{copy.additionalProjects[locale]}</p>
         </div>
+
+        {/* Contact */}
+        <section className="mt-24 text-center space-y-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-neutral-600">
+            Contact
+          </p>
+
+          <p className="text-[15px] text-neutral-500 leading-relaxed">
+            {locale === "ja"
+              ? "もしここから何か始まるようでしたら"
+              : "If this becomes something, we can continue."}
+          </p>
+
+          <a
+            href="mailto:contact@masaaki.ai?subject=Project%20Inquiry%20from%20masaaki.ai"
+            className="text-xs text-neutral-400 underline underline-offset-4 transition hover:opacity-60"
+          >
+            contact@masaaki.ai
+          </a>
+        </section>
       </div>
     </div>
   )

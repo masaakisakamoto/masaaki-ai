@@ -2,14 +2,17 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-black px-6 py-12 flex flex-col items-center justify-center">
       <section className="max-w-2xl text-center space-y-6">
-        <p className="text-xs uppercase tracking-[0.18em] text-gray-500">
+        <p className="text-xs uppercase tracking-[0.18em] text-gray-500 leading-none">
           MASAAKI AI
+        </p>
+
+        <p className="text-[10px] text-gray-400 tracking-[0.18em] leading-none -mt-[20px] opacity-80">
+          ~ The journey continues. ~
         </p>
 
         <h1 className="text-4xl font-semibold tracking-tight">
           Masaaki Sakamoto
         </h1>
-
         <div className="space-y-1">
           <p className="text-lg">AI Systems Engineer</p>
           <p className="text-lg">Human Systems × AI Integrator</p>

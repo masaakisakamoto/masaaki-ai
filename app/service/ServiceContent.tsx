@@ -8,8 +8,8 @@ const copy = {
     site: "MASAAKI AI",
 
     eyebrow: "Service",
-    title1: "Production services,",
-    title2: "actively shipped.",
+    title1: "Where ideas begin",
+    title2: "to live.",
     body1: "Services built for real use,",
     body2: "with clarity, care, and long-term potential.",
 
@@ -26,8 +26,8 @@ const copy = {
     site: "MASAAKI AI",
 
     eyebrow: "Service",
-    title1: "Production services,",
-    title2: "actively shipped.",
+    title1: "アイデアが、",
+    title2: "かたちになって動き出す場所",
     body1: "実際の利用を前提に、",
     body2: "丁寧に育てているサービスです。",
 
@@ -60,21 +60,19 @@ export default function ServiceContent() {
         <div className="inline-flex rounded-full border border-black/10 bg-white p-1 shadow-sm">
           <Link
             href="/service?lang=en"
-            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
-              lang === "en"
-                ? "bg-black text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
+            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${lang === "en"
+              ? "bg-black text-white"
+              : "text-neutral-500 hover:text-black"
+              }`}
           >
             {t.toggleEn}
           </Link>
           <Link
             href="/service?lang=ja"
-            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
-              lang === "ja"
-                ? "bg-black text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
+            className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${lang === "ja"
+              ? "bg-black text-white"
+              : "text-neutral-500 hover:text-black"
+              }`}
           >
             {t.toggleJa}
           </Link>
@@ -122,6 +120,26 @@ export default function ServiceContent() {
             {t.service01Link}
           </a>
         </div>
+      </section>
+
+      {/* 🔥 Contact導線 */}
+      <section className="mt-24 text-center space-y-4">
+        <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
+          Service
+        </p>
+
+        <p className="text-[15px] text-gray-500 leading-relaxed">
+          {lang === "ja"
+            ? "もし何かご一緒できそうでしたら"
+            : "If there’s something we could build together,"}
+        </p>
+
+        <a
+          href="mailto:service@masaaki.ai?subject=Service%20Inquiry%20from%20masaaki.ai"
+          className="text-xs text-gray-400 underline underline-offset-4 transition hover:opacity-60"
+        >
+          service@masaaki.ai
+        </a>
       </section>
     </main>
   );
