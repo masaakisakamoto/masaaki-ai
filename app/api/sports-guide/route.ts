@@ -6,12 +6,35 @@ export async function POST(req: Request) {
   try {
     const { message } = await req.json();
 
-    return NextResponse.json({
-      reply: `受け取った質問: ${message}`,
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "system",
+            content: "あなたはスポーツ推進のガイドです。",
+          },
+          {
+            role: "user",
+            content: message,
+          },
+        ],
+      }),
     });
-  } catch {
+
+    const data = await response.json();
+
     return NextResponse.json({
-      reply: "エラーが発生しました",
+      reply: data.choices?.[0]?.message?.content ?? "エラー",
+    });
+  } catch (e) {
+    return NextResponse.json({
+      reply: "サーバーエラー",
     });
   }
 }
