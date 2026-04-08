@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import StudyItemCard from "@/components/study/StudyItemCard";
 import ShareMessageCard from "@/components/study/ShareMessageCard";
@@ -110,6 +111,40 @@ export default async function StudyCategoryPage({
                   </p>
                 </Link>
               ))}
+            </div>
+          </section>
+        ) : null}
+
+        {category === "sports" ? (
+          <section className="mt-16">
+            <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+              Activity image
+            </p>
+            <h2 className="mt-4 text-2xl font-medium tracking-tight">
+              スポーツ推進委員の活動イメージ
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
+              地域でスポーツを広げていくには、イベントだけでなく、
+              日常の中で人と人をつなぐ存在も大切です。
+              スポーツ推進委員は、そうした地域の実践を支える役割のひとつです。
+            </p>
+
+            <div className="mt-8 overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-[0_10px_34px_rgba(0,0,0,0.04)]">
+              <Image
+                src="/images/sports-promotion-committee-image.png"
+                alt="スポーツ推進委員の活動イメージ"
+                width={1536}
+                height={1024}
+                className="h-auto w-full"
+                priority={false}
+              />
+
+              <div className="p-6">
+                <p className="text-sm leading-7 text-black/70">
+                  地域での声かけや運動機会づくりを支える人の存在があることで、
+                  スポーツはイベントだけでなく、暮らしの中にも広がっていきます。
+                </p>
+              </div>
             </div>
           </section>
         ) : null}
