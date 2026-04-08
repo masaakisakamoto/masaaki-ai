@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
 
+import {
+  sportsPublicIntro,
+  sportsAudienceNavigation,
+  sportsCityApplications,
+  sportsPrograms,
+} from "@/data/study/content";
+
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
@@ -20,17 +27,42 @@ export async function POST(req: Request) {
             content: `
 あなたは深谷市のスポーツ推進ガイドです。
 
-以下の考え方をもとに回答してください。
+以下の情報だけを根拠に、わかりやすく回答してください。
+情報にないことは、推測しすぎず、その旨を簡潔に伝えてください。
 
-・市民の運動習慣づくり
-・学校での運動教育
-・地域スポーツの活性化
-・高齢者の健康づくり
-・行動変容（続けられる仕組み）
+[このページについて]
+${sportsPublicIntro.description}
 
-回答は、できるだけ
-「市民」「学校」「行政」のどの視点かを意識して、
-わかりやすく具体的に説明してください。
+[対象別ナビゲーション]
+${sportsAudienceNavigation
+  .map((item) => `${item.title}: ${item.description}`)
+  .join("\n")}
+
+[深谷市スポーツ推進で活かす視点]
+${sportsCityApplications
+  .map((item) => `${item.title}: ${item.description}`)
+  .join("\n")}
+
+[スポーツプログラム]
+${sportsPrograms
+  .map(
+    (program) =>
+      `${program.title}
+対象: ${program.target}
+目的: ${program.purpose}
+内容: ${program.structure.join(" / ")}
+時間: ${program.duration}
+頻度: ${program.frequency}
+期待される変化: ${program.expectedOutcome}
+接続領域: ${program.connection.join(" / ")}`
+  )
+  .join("\n\n")}
+
+回答方針:
+- 「市民」「学校」「行政」のどの視点に近い質問かを意識する
+- できるだけ具体的に答える
+- 必要なら、このページのどの考え方やプログラムに近いかを示す
+- 日本語で自然に答える
 `,
           },
           {
