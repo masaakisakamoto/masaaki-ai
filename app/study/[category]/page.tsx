@@ -323,31 +323,33 @@ export default async function StudyCategoryPage({
           </>
         ) : null}
 
-        <section className="mt-16">
-          <div className="flex items-end justify-between gap-6">
-            <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-black/45">
-                Items
-              </p>
-              <h2 className="mt-4 text-3xl font-medium tracking-tight">
-                {categoryData.title} items
-              </h2>
+        {category !== "sports" ? (
+          <section className="mt-16">
+            <div className="flex items-end justify-between gap-6">
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+                  Items
+                </p>
+                <h2 className="mt-4 text-3xl font-medium tracking-tight">
+                  {categoryData.title} items
+                </h2>
+              </div>
+
+              <Link
+                href="/study/feedback"
+                className="text-sm text-black/68 underline underline-offset-4 transition hover:text-black"
+              >
+                Share feedback
+              </Link>
             </div>
 
-            <Link
-              href="/study/feedback"
-              className="text-sm text-black/68 underline underline-offset-4 transition hover:text-black"
-            >
-              Share feedback
-            </Link>
-          </div>
-
-          <div className="mt-8 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-            {items.map((item) => (
-              <StudyItemCard key={item.slug} item={item} />
-            ))}
-          </div>
-        </section>
+            <div className="mt-8 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+              {items.map((item) => (
+                <StudyItemCard key={item.slug} item={item} />
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         {category === "sports" ? (
           <section className="mt-16">
