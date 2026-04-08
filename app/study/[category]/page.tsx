@@ -131,7 +131,7 @@ export default async function StudyCategoryPage({
 
             <div className="mt-8 overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-[0_10px_34px_rgba(0,0,0,0.04)]">
               <Image
-                src="/images/sports-promotion-committee-image.png"
+                src="/images/sports-promotion-committee-image-v2.png"
                 alt="スポーツ推進委員の活動イメージ"
                 width={1536}
                 height={1024}
@@ -143,6 +143,9 @@ export default async function StudyCategoryPage({
                 <p className="text-sm leading-7 text-black/70">
                   地域での声かけや運動機会づくりを支える人の存在があることで、
                   スポーツはイベントだけでなく、暮らしの中にも広がっていきます。
+                </p>
+                <p className="mt-3 text-xs leading-6 text-black/45">
+                  ※ 実際の人物・公式ユニフォームそのものではなく、説明用のイメージです。
                 </p>
               </div>
             </div>
