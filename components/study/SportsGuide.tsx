@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import StructuredAnswerView from "@/components/study/StructuredAnswerView";
+import AnswerFeedback from "@/components/study/AnswerFeedback";
 import type { StructuredAnswer } from "@/lib/study/types";
 
 export default function SportsGuide() {
@@ -102,6 +103,7 @@ export default function SportsGuide() {
         {structured ? (
           <div className="mt-6">
             <StructuredAnswerView answer={structured} />
+            <AnswerFeedback question={input} answer={structured} />
           </div>
         ) : null}
 
