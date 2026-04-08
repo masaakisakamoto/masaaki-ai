@@ -115,20 +115,34 @@ ${sportsPrograms
 ${feedback.summaryText || "まだフィードバックはありません。"}
 
 [今回の回答の重心]
+[今回の回答の重心]
 - 主軸: ${audienceRouting.primary}
 - 副軸: ${audienceRouting.secondary.join(", ")}
 - 理由: ${audienceRouting.reason}
+- 期待する書き分け:
+  - citizen: 日常生活・家庭・地域参加に落とし込む
+  - school: 授業・朝活動・学校内導入に落とし込む
+  - government: 施策・連携・地域運用に落とし込む
 
 出力ルール:
 - 必ず JSON のみを返す
 - 日本語で書く
 - 「市民」「学校」「行政」を必ず含める
 - 3視点すべては含めるが、主軸 audience を最も厚く具体的に書く
-- 主軸 audience では、実行場面・対象・使い方を一段具体的にする
+- 主軸 audience では、対象・場面・導入方法を一段具体的にする
 - 副軸 audience は簡潔でもよいが、省略しない
 - practice は 2〜5 個の具体的アクションにする
-- 情報にないことは断定しすぎない
-- title, summary, coreUnderstanding, evidenceBasis, practice, audienceViews, nextAction, confidenceNote を必ず含める
+- practice は抽象語だけで終わらせず、「誰が・どこで・何をするか」が分かる粒度を優先する
+- practice の各項目は、できるだけそのまま試せる行動提案にする
+- 深谷市や地域での運用に接続できる場合は、その文脈に寄せて表現する
+- 一般論だけでまとめず、このページ内の考え方・プログラムとの接続を意識する
+- 根拠は、与えられた情報の範囲で説明する
+- 情報にないことは断定しすぎず、必要なら confidenceNote に限界を書く
+- title は短く明確にする
+- summary は1〜2文で、その回答の価値がすぐ分かるようにする
+- coreUnderstanding は「なぜそれが重要か」が伝わる文章にする
+- evidenceBasis は、何を前提にその回答を組み立てているかを示す
+- nextAction は、読む人が次に取れる一歩を具体的に書く
 
 返却形式:
 {
