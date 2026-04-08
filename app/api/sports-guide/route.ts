@@ -6,12 +6,56 @@ import {
   sportsCityApplications,
   sportsPrograms,
 } from "@/data/study/content";
+import {
+  isStructuredAnswer,
+  type StructuredAnswer,
+} from "@/lib/study/types";
 
 export const runtime = "nodejs";
+
+function buildFallbackAnswer(message: string): StructuredAnswer {
+  return {
+    title: "回答を構造化できませんでした",
+    summary:
+      "現在の回答生成では構造化に失敗したため、質問を少し具体化して再度お試しください。",
+    coreUnderstanding: `質問「${message}」に対して、現時点では安定した構造化応答を返せませんでした。`,
+    evidenceBasis:
+      "モデル出力が想定したJSON形式にならなかったため、構造化済みの回答としては採用していません。",
+    practice: [
+      "質問を短くして再度聞く",
+      "対象を明確にする（市民向け・学校向け・行政向け）",
+      "活用したい場面を一文足す",
+    ],
+    audienceViews: {
+      citizen:
+        "市民向けには、日常生活や地域活動にどう役立つかを含めて聞くと精度が上がります。",
+      school:
+        "学校向けには、授業・部活動・健康教育のどれに関する質問かを明記すると答えやすくなります。",
+      government:
+        "行政向けには、対象人口・施策目的・地域課題を含めると社会実装に結びつきやすくなります。",
+    },
+    nextAction:
+      "質問対象と活用場面を一文追加して、もう一度質問してください。",
+    confidenceNote:
+      "この回答はフォールバックです。構造化出力には失敗しています。",
+  };
+}
 
 export async function POST(req: Request) {
   try {
     const { message } = await req.json();
+
+    const userMessage = String(message ?? "").trim();
+
+    if (!userMessage) {
+      return NextResponse.json(
+        {
+          structured: buildFallbackAnswer(""),
+          raw: "質問が空です。",
+        },
+        { status: 400 }
+      );
+    }
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -21,14 +65,19 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
+        response_format: { type: "json_object" },
         messages: [
           {
             role: "system",
             content: `
-あなたは深谷市のスポーツ推進ガイドです。
+あなたは masaaki.ai のスポーツ知識ガイドです。
+
+あなたの役割は、単なる自由文の回答ではなく、
+「理解 → 根拠 → 実践 → 社会への翻訳」
+として知識を構造化することです。
 
 以下の情報だけを根拠に、わかりやすく回答してください。
-情報にないことは、推測しすぎず、その旨を簡潔に伝えてください。
+情報にないことは、推測しすぎず、その旨を confidenceNote に簡潔に書いてください。
 
 [このページについて]
 ${sportsPublicIntro.description}
@@ -58,16 +107,34 @@ ${sportsPrograms
   )
   .join("\n\n")}
 
-回答方針:
-- 「市民」「学校」「行政」のどの視点に近い質問かを意識する
-- できるだけ具体的に答える
-- 必要なら、このページのどの考え方やプログラムに近いかを示す
-- 日本語で自然に答える
-`,
+出力ルール:
+- 必ず JSON のみを返す
+- 日本語で書く
+- 「市民」「学校」「行政」を必ず含める
+- practice は 2〜5 個の具体的アクションにする
+- 情報にないことは断定しすぎない
+- title, summary, coreUnderstanding, evidenceBasis, practice, audienceViews, nextAction, confidenceNote を必ず含める
+
+返却形式:
+{
+  "title": "string",
+  "summary": "string",
+  "coreUnderstanding": "string",
+  "evidenceBasis": "string",
+  "practice": ["string"],
+  "audienceViews": {
+    "citizen": "string",
+    "school": "string",
+    "government": "string"
+  },
+  "nextAction": "string",
+  "confidenceNote": "string"
+}
+            `.trim(),
           },
           {
             role: "user",
-            content: message,
+            content: userMessage,
           },
         ],
       }),
@@ -75,12 +142,31 @@ ${sportsPrograms
 
     const data = await response.json();
 
+    const text = data.choices?.[0]?.message?.content ?? "";
+
+    let parsed: StructuredAnswer | null = null;
+
+    try {
+      const json = JSON.parse(text);
+      if (isStructuredAnswer(json)) {
+        parsed = json;
+      }
+    } catch {
+      parsed = null;
+    }
+
+    const structured = parsed ?? buildFallbackAnswer(userMessage);
+
     return NextResponse.json({
-      reply: data.choices?.[0]?.message?.content ?? "エラー",
+      structured,
+      raw: text,
     });
   } catch (e) {
+    console.error("[api/sports-guide] error", e);
+
     return NextResponse.json({
-      reply: "サーバーエラー",
+      structured: buildFallbackAnswer(""),
+      raw: "サーバーエラー",
     });
   }
 }

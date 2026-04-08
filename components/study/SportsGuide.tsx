@@ -2,16 +2,23 @@
 
 import { useState } from "react";
 
+import StructuredAnswerView from "@/components/study/StructuredAnswerView";
+import type { StructuredAnswer } from "@/lib/study/types";
+
 export default function SportsGuide() {
   const [input, setInput] = useState("");
-  const [reply, setReply] = useState("");
+  const [structured, setStructured] = useState<StructuredAnswer | null>(null);
+  const [raw, setRaw] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleAsk() {
-    if (!input) return;
+    if (!input.trim()) return;
 
     setLoading(true);
-    setReply("");
+    setStructured(null);
+    setRaw("");
+    setError("");
 
     try {
       const res = await fetch("/api/sports-guide", {
@@ -22,15 +29,17 @@ export default function SportsGuide() {
         body: JSON.stringify({ message: input }),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        setReply(`エラーが発生しました (${res.status})`);
+        setError(`エラーが発生しました (${res.status})`);
         return;
       }
 
-      const data = await res.json();
-      setReply(data.reply ?? "回答が取得できませんでした");
+      setStructured(data.structured ?? null);
+      setRaw(data.raw ?? "");
     } catch {
-      setReply("エラーが発生しました");
+      setError("エラーが発生しました");
     } finally {
       setLoading(false);
     }
@@ -38,7 +47,7 @@ export default function SportsGuide() {
 
   return (
     <section className="mt-16">
-      <div className="rounded-[28px] border border-black/8 bg-white p-6 md:p-8 shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+      <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-8">
         <p className="text-sm uppercase tracking-[0.24em] text-black/45">
           AI Guide
         </p>
@@ -78,15 +87,29 @@ export default function SportsGuide() {
           </button>
         </div>
 
-        {loading && (
-          <p className="mt-4 text-sm text-black/50">Thinking...</p>
-        )}
+        {loading ? (
+          <p className="mt-4 text-sm text-black/50">
+            構造化された回答を生成中です...
+          </p>
+        ) : null}
 
-        {reply && (
-          <div className="mt-6 rounded-2xl bg-black/[0.03] p-4 text-sm leading-7 text-black/80">
-            {reply}
+        {error ? (
+          <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm leading-7 text-red-700">
+            {error}
           </div>
-        )}
+        ) : null}
+
+        {structured ? (
+          <div className="mt-6">
+            <StructuredAnswerView answer={structured} />
+          </div>
+        ) : null}
+
+        {!structured && raw ? (
+          <div className="mt-6 rounded-2xl bg-black/[0.03] p-4 text-sm leading-7 text-black/80">
+            {raw}
+          </div>
+        ) : null}
       </div>
     </section>
   );
