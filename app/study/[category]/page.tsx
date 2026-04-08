@@ -49,15 +49,6 @@ export default async function StudyCategoryPage({
         <section className="mt-8 max-w-3xl">
           {category === "sports" ? (
             <section className="mt-10">
-              <ShareMessageCard
-                title={sportsShareMessage.title}
-                description={sportsShareMessage.description}
-                shortMessage={sportsShareMessage.shortMessage}
-              />
-            </section>
-          ) : null}
-          {category === "sports" ? (
-            <section className="mt-10">
               <div className="rounded-[28px] border border-black/8 bg-black/[0.02] p-6 md:p-8">
                 <p className="text-sm uppercase tracking-[0.24em] text-black/45">
                   Overview
@@ -68,59 +59,10 @@ export default async function StudyCategoryPage({
                 <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
                   {sportsPublicIntro.description}
                 </p>
-
-                <div className="mt-6 space-y-3">
-                  {sportsPublicIntro.points.map((point) => (
-                    <div
-                      key={point}
-                      className="rounded-2xl bg-white p-4 text-sm leading-7 text-black/72"
-                    >
-                      {point}
-                    </div>
-                  ))}
-                </div>
-
-                <p className="mt-6 text-sm leading-7 text-black/56">
-                  {sportsPublicIntro.note}
-                </p>
               </div>
             </section>
           ) : null}
-          {category === "sports" ? (
-            <section className="mt-10 mb-12">
-              <div className="rounded-[28px] border border-black/8 bg-black/[0.02] p-6 md:p-8">
-                <p className="text-sm uppercase tracking-[0.24em] text-black/45">
-                  Getting started
-                </p>
-                <h2 className="mt-4 text-xl font-medium tracking-tight">
-                  まず最初にご覧ください
-                </h2>
 
-                <div className="mt-6 grid gap-4 md:grid-cols-3">
-                  <Link
-                    href="#sports-programs-family"
-                    className="rounded-2xl bg-white p-4 text-sm text-black/75 transition hover:bg-black/[0.04] hover:text-black"
-                  >
-                    市民の方へ
-                  </Link>
-
-                  <Link
-                    href="#sports-programs-school"
-                    className="rounded-2xl bg-white p-4 text-sm text-black/75 transition hover:bg-black/[0.04] hover:text-black"
-                  >
-                    学校関係者の方へ
-                  </Link>
-
-                  <Link
-                    href="#sports-city-application"
-                    className="rounded-2xl bg-white p-4 text-sm text-black/75 transition hover:bg-black/[0.04] hover:text-black"
-                  >
-                    行政・地域関係者の方へ
-                  </Link>
-                </div>
-              </div>
-            </section>
-          ) : null}
           <p className="text-sm uppercase tracking-[0.24em] text-black/45">
             {categoryData.title}
           </p>
@@ -170,6 +112,8 @@ export default async function StudyCategoryPage({
             </div>
           </section>
         ) : null}
+
+        {category === "sports" ? <SportsGuide /> : null}
 
         {category === "sports" ? (
           <section id="sports-city-application" className="mt-16 scroll-mt-24">
@@ -229,7 +173,10 @@ export default async function StudyCategoryPage({
                 </h2>
                 <div className="mt-6 space-y-4">
                   {sportsProjectIdeas.map((idea) => (
-                    <div key={idea.title} className="rounded-2xl bg-black/[0.03] p-4">
+                    <div
+                      key={idea.title}
+                      className="rounded-2xl bg-black/[0.03] p-4"
+                    >
                       <h3 className="text-base font-medium tracking-tight">
                         {idea.title}
                       </h3>
@@ -285,7 +232,9 @@ export default async function StudyCategoryPage({
                       className="scroll-mt-24"
                     >
                       <div className="max-w-3xl">
-                        <h3 className="text-xl font-medium tracking-tight">{group.title}</h3>
+                        <h3 className="text-xl font-medium tracking-tight">
+                          {group.title}
+                        </h3>
                         <p className="mt-3 text-sm leading-7 text-black/68">
                           {group.description}
                         </p>
@@ -301,7 +250,9 @@ export default async function StudyCategoryPage({
                               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-black text-sm text-white">
                                 {index + 1}
                               </span>
-                              <h4 className="text-lg font-medium">{program.title}</h4>
+                              <h4 className="text-lg font-medium">
+                                {program.title}
+                              </h4>
                             </div>
 
                             <p className="mt-2 text-sm text-black/70">
@@ -309,8 +260,8 @@ export default async function StudyCategoryPage({
                             </p>
 
                             <div className="mt-4 text-sm text-black/60">
-                              対象: {program.target} / 時間: {program.duration} / 頻度:{" "}
-                              {program.frequency}
+                              対象: {program.target} / 時間: {program.duration} /
+                              頻度: {program.frequency}
                             </div>
 
                             <ul className="mt-4 space-y-1 text-sm text-black/70">
@@ -346,7 +297,6 @@ export default async function StudyCategoryPage({
                 })}
               </div>
             </section>
-            {category === "sports" ? <SportsGuide /> : null}
           </>
         ) : null}
 
@@ -375,6 +325,16 @@ export default async function StudyCategoryPage({
             ))}
           </div>
         </section>
+
+        {category === "sports" ? (
+          <section className="mt-16">
+            <ShareMessageCard
+              title={sportsShareMessage.title}
+              description={sportsShareMessage.description}
+              shortMessage={sportsShareMessage.shortMessage}
+            />
+          </section>
+        ) : null}
       </div>
     </main>
   );
