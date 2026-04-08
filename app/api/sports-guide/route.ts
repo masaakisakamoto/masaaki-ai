@@ -6,6 +6,8 @@ import {
   sportsCityApplications,
   sportsPrograms,
 } from "@/data/study/content";
+import { getRecentFeedbackSummary } from "@/lib/study/feedback";
+import { routeAudience } from "@/lib/study/audience";
 import {
   isStructuredAnswer,
   type StructuredAnswer,
@@ -46,6 +48,8 @@ export async function POST(req: Request) {
     const { message } = await req.json();
 
     const userMessage = String(message ?? "").trim();
+    const feedback = await getRecentFeedbackSummary(8);
+    const audienceRouting = routeAudience(userMessage);
 
     if (!userMessage) {
       return NextResponse.json(
@@ -84,19 +88,19 @@ ${sportsPublicIntro.description}
 
 [対象別ナビゲーション]
 ${sportsAudienceNavigation
-  .map((item) => `${item.title}: ${item.description}`)
-  .join("\n")}
+                .map((item) => `${item.title}: ${item.description}`)
+                .join("\n")}
 
 [深谷市スポーツ推進で活かす視点]
 ${sportsCityApplications
-  .map((item) => `${item.title}: ${item.description}`)
-  .join("\n")}
+                .map((item) => `${item.title}: ${item.description}`)
+                .join("\n")}
 
 [スポーツプログラム]
 ${sportsPrograms
-  .map(
-    (program) =>
-      `${program.title}
+                .map(
+                  (program) =>
+                    `${program.title}
 対象: ${program.target}
 目的: ${program.purpose}
 内容: ${program.structure.join(" / ")}
@@ -104,13 +108,24 @@ ${sportsPrograms
 頻度: ${program.frequency}
 期待される変化: ${program.expectedOutcome}
 接続領域: ${program.connection.join(" / ")}`
-  )
-  .join("\n\n")}
+                )
+                .join("\n\n")}
+
+[最近のフィードバック]
+${feedback.summaryText || "まだフィードバックはありません。"}
+
+[今回の回答の重心]
+- 主軸: ${audienceRouting.primary}
+- 副軸: ${audienceRouting.secondary.join(", ")}
+- 理由: ${audienceRouting.reason}
 
 出力ルール:
 - 必ず JSON のみを返す
 - 日本語で書く
 - 「市民」「学校」「行政」を必ず含める
+- 3視点すべては含めるが、主軸 audience を最も厚く具体的に書く
+- 主軸 audience では、実行場面・対象・使い方を一段具体的にする
+- 副軸 audience は簡潔でもよいが、省略しない
 - practice は 2〜5 個の具体的アクションにする
 - 情報にないことは断定しすぎない
 - title, summary, coreUnderstanding, evidenceBasis, practice, audienceViews, nextAction, confidenceNote を必ず含める
