@@ -438,6 +438,40 @@ export default async function StudyCategoryPage({
 
         {category === "sports" ? (
           <section className="mt-16">
+            <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+              Local record
+            </p>
+            <h2 className="mt-4 text-2xl font-medium tracking-tight">
+              ふかやシティハーフマラソンの活動記録
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
+              地域の中で多くの人が関わるスポーツイベントは、運動習慣づくりだけでなく、
+              地域のつながりや挑戦の機会にもなります。
+              ふかやシティハーフマラソンは、深谷における代表的な実践例のひとつです。
+            </p>
+
+            <div className="mt-8 rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-7">
+              <p className="text-sm leading-7 text-black/70">
+                大会そのものを見るだけでなく、こうした場がどのように地域のスポーツ文化を支えているかを考えるきっかけにもなります。
+                市民の参加、挑戦の機会、地域の一体感という面からも、深谷のスポーツ推進を考えるうえで大切な実践のひとつです。
+              </p>
+
+              <div className="mt-6">
+                <a
+                  href="https://www.city.fukaya.saitama.jp/kurashi/sports/sports/sportevent/index.html"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
+                >
+                  深谷市のスポーツイベント情報を見る
+                </a>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {category === "sports" ? (
+          <section className="mt-16">
             <ShareMessageCard
               title={sportsShareMessage.title}
               description={sportsShareMessage.description}
