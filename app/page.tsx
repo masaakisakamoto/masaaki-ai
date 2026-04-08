@@ -35,19 +35,19 @@ export default function Home() {
           <div className="flex justify-center gap-4">
             <a
               href="/service"
-              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-100 hover:text-gray-900"
             >
               Service
             </a>
             <a
               href="/projects"
-              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-100 hover:text-gray-900"
             >
               Projects
             </a>
             <a
               href="/labs"
-              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-100 hover:text-gray-900"
             >
               Labs
             </a>
@@ -59,7 +59,7 @@ export default function Home() {
               href="https://github.com/masaakisakamoto"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-100 hover:text-gray-900"
             >
               GitHub
             </a>
@@ -67,9 +67,19 @@ export default function Home() {
               href="https://x.com/masaaki_s"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-700 hover:text-white"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-100 hover:text-gray-900"
             >
               X
+            </a>
+          </div>
+
+          {/* 最下段 */}
+          <div className="flex justify-center pt-1">
+            <a
+              href="/study"
+              className="w-[calc((408px-2rem)/3-34px)] h-12 border border-gray-700 text-gray-700 text-[15px] font-medium tracking-[-0.01em] flex items-center justify-center transition duration-200 hover:bg-gray-100 hover:text-gray-900"
+            >
+              Learning
             </a>
           </div>
         </div>
