@@ -11,16 +11,29 @@ export default function SportsGuide() {
     if (!input) return;
 
     setLoading(true);
+    setReply("");
 
-    const res = await fetch("/api/sports-guide", {
-      method: "POST",
-      body: JSON.stringify({ message: input }),
-    });
+    try {
+      const res = await fetch("/api/sports-guide", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: input }),
+      });
 
-    const data = await res.json();
+      if (!res.ok) {
+        setReply(`エラーが発生しました (${res.status})`);
+        return;
+      }
 
-    setReply(data.reply);
-    setLoading(false);
+      const data = await res.json();
+      setReply(data.reply ?? "回答が取得できませんでした");
+    } catch {
+      setReply("エラーが発生しました");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
