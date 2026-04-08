@@ -16,6 +16,7 @@ import {
   sportsAudienceNavigation,
   sportsPublicIntro,
   sportsShareMessage,
+  sportsFeaturedAthletes,
 } from "@/data/study/content";
 
 export function generateStaticParams() {
@@ -243,10 +244,7 @@ export default async function StudyCategoryPage({
                       id={`sports-programs-${group.key}`}
                       className="scroll-mt-24"
                     >
-                      <details
-                        className="rounded-[28px] border border-black/10 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)]"
-                        open={group.key === "family"}
-                      >
+                      <details className="group rounded-[28px] border border-black/10 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
                         <summary className="cursor-pointer list-none">
                           <div className="flex items-start justify-between gap-6">
                             <div className="max-w-3xl">
@@ -258,9 +256,16 @@ export default async function StudyCategoryPage({
                               </p>
                             </div>
 
-                            <span className="rounded-full border border-black/10 px-3 py-1 text-xs text-black/60">
-                              {filteredPrograms.length} programs
-                            </span>
+                            <div className="flex shrink-0 items-center gap-3">
+                              <span className="rounded-full border border-black/10 px-3 py-1 text-xs text-black/60">
+                                {filteredPrograms.length} programs
+                              </span>
+
+                              <span className="rounded-full bg-black/[0.04] px-3 py-1 text-xs text-black/55">
+                                <span className="group-open:hidden">開く</span>
+                                <span className="hidden group-open:inline">閉じる</span>
+                              </span>
+                            </div>
                           </div>
                         </summary>
 
@@ -346,6 +351,86 @@ export default async function StudyCategoryPage({
             <div className="mt-8 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
               {items.map((item) => (
                 <StudyItemCard key={item.slug} item={item} />
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {category === "sports" ? (
+          <section className="mt-16">
+            <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+              Local example
+            </p>
+            <h2 className="mt-4 text-2xl font-medium tracking-tight">
+              深谷で親しまれている身近な運動
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
+              深谷では、日常の中で親しみやすく体を動かす機会として、
+              地域に根づいた運動文化があります。
+              ふっかちゃん体操は、その身近な実践例のひとつです。
+            </p>
+
+            <div className="mt-8 overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-[0_10px_34px_rgba(0,0,0,0.04)]">
+              <div className="aspect-video w-full">
+                <iframe
+                  className="h-full w-full"
+                  src="https://www.youtube.com/embed/boCci3-a-5Q"
+                  title="ふっかちゃん体操"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+
+              <div className="p-6">
+                <p className="text-sm leading-7 text-black/70">
+                  こうした地域の身近な運動があることで、運動は暮らしの中へ広がりやすくなります。
+                </p>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {category === "sports" ? (
+          <section className="mt-16">
+            <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+              Role models
+            </p>
+            <h2 className="mt-4 text-2xl font-medium tracking-tight">
+              深谷にゆかりのあるアスリート
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
+              地域で親しまれている運動だけでなく、深谷にゆかりのあるアスリートの存在も、
+              スポーツを身近に感じるきっかけになります。
+              市民・学校・地域にとって、挑戦や継続を考えるうえでの大切なロールモデルです。
+            </p>
+
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              {sportsFeaturedAthletes.map((athlete) => (
+                <div
+                  key={athlete.name}
+                  className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)]"
+                >
+                  <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                    {athlete.sport}
+                  </p>
+                  <h3 className="mt-3 text-xl font-medium tracking-tight">
+                    {athlete.name}
+                  </h3>
+                  <p className="mt-4 text-sm leading-7 text-black/70">
+                    {athlete.description}
+                  </p>
+
+                  <div className="mt-4 rounded-2xl bg-black/[0.03] p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                      Why it matters
+                    </p>
+                    <p className="mt-2 text-sm leading-7 text-black/70">
+                      {athlete.connection}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
           </section>

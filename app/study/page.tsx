@@ -65,7 +65,7 @@ export default function StudyPage() {
               Featured path
             </p>
             <h2 className="mt-4 text-3xl font-medium tracking-tight">
-              深谷市スポーツ推進に活かす入口
+              埼玉県深谷市スポーツ推進委員として、深谷市のスポーツ推進を考えていく
             </h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
               市民・学校・行政の橋渡しとして、スポーツ推進をどう実践につなげていくかを整理し始めたページです。
