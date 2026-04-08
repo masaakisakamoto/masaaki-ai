@@ -2,24 +2,27 @@
 
 import { useState } from "react";
 
-import StructuredAnswerView from "@/components/study/StructuredAnswerView";
 import AnswerFeedback from "@/components/study/AnswerFeedback";
+import StructuredAnswerView from "@/components/study/StructuredAnswerView";
 import type { StructuredAnswer } from "@/lib/study/types";
 
 export default function SportsGuide() {
   const [input, setInput] = useState("");
+  const [submittedQuestion, setSubmittedQuestion] = useState("");
   const [structured, setStructured] = useState<StructuredAnswer | null>(null);
   const [raw, setRaw] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleAsk() {
-    if (!input.trim()) return;
+    const question = input.trim();
+    if (!question) return;
 
     setLoading(true);
     setStructured(null);
     setRaw("");
     setError("");
+    setSubmittedQuestion("");
 
     try {
       const res = await fetch("/api/sports-guide", {
@@ -27,7 +30,7 @@ export default function SportsGuide() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: question }),
       });
 
       const data = await res.json();
@@ -39,6 +42,7 @@ export default function SportsGuide() {
 
       setStructured(data.structured ?? null);
       setRaw(data.raw ?? "");
+      setSubmittedQuestion(question);
     } catch {
       setError("エラーが発生しました");
     } finally {
@@ -103,7 +107,12 @@ export default function SportsGuide() {
         {structured ? (
           <div className="mt-6">
             <StructuredAnswerView answer={structured} />
-            <AnswerFeedback question={input} answer={structured} />
+            <AnswerFeedback
+              key={`${submittedQuestion}-${structured.title}`}
+              question={submittedQuestion}
+              answer={structured}
+              area="sports"
+            />
           </div>
         ) : null}
 
