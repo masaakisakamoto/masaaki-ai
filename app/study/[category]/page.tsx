@@ -507,6 +507,45 @@ export default async function StudyCategoryPage({
 
         {category === "sports" ? (
           <section className="mt-16">
+            <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+              Activity record
+            </p>
+            <h2 className="mt-4 text-2xl font-medium tracking-tight">
+              令和7年度スポーツ推進委員活動スケジュール【参考】
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
+              昨年は、定例会や研修会に加え、市民向けイベント、学校でのスポーツ教室、
+              地域での体験会、ふかやシティハーフマラソンの運営協力など、
+              年間を通して幅広く活動しました。
+            </p>
+
+            <div className="mt-8 rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-7">
+              <ul className="space-y-2 text-sm leading-7 text-black/72">
+                <li>・運営・会議・研修　34件</li>
+                <li>・学校・地域での教室や体験会　18件</li>
+                <li>・市民向けイベント・実践　11件</li>
+                <li>・ふかやシティハーフマラソン関連　5件</li>
+              </ul>
+
+              <div className="mt-6">
+                <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                  Main examples
+                </p>
+                <ul className="mt-3 space-y-2 text-sm leading-7 text-black/72">
+                  <li>・5/18　ウォーキング大寄</li>
+                  <li>・7/25　みんなでラジオ体操</li>
+                  <li>・9/6　市民体力測定・深谷</li>
+                  <li>・10/26　福祉健康まつり</li>
+                  <li>・11/16　青淵まつりでのふっかちゃん体操</li>
+                  <li>・2/22　20thふかやシティハーフマラソン</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {category === "sports" ? (
+          <section className="mt-16">
             <ShareMessageCard
               title={sportsShareMessage.title}
               description={sportsShareMessage.description}
