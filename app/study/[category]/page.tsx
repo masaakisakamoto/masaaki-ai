@@ -203,7 +203,19 @@ export default async function StudyCategoryPage({
                 親子・高齢者・学校を起点に、地域の中で実際に動かせるプログラムの形へ整理しています。
               </p>
 
-              <div className="mt-8 space-y-10">
+              <div className="mt-6 flex flex-wrap gap-2">
+                {sportsProgramGroups.map((group) => (
+                  <a
+                    key={group.key}
+                    href={`#sports-programs-${group.key}`}
+                    className="rounded-full border border-black/10 px-3 py-1 text-xs text-black/70 transition hover:bg-black/[0.04] hover:text-black"
+                  >
+                    {group.title}
+                  </a>
+                ))}
+              </div>
+
+              <div className="mt-8 space-y-6">
                 {sportsProgramGroups.map((group) => {
                   const filteredPrograms = sportsPrograms.filter((program) => {
                     if (group.key === "family") {
@@ -231,67 +243,78 @@ export default async function StudyCategoryPage({
                       id={`sports-programs-${group.key}`}
                       className="scroll-mt-24"
                     >
-                      <div className="max-w-3xl">
-                        <h3 className="text-xl font-medium tracking-tight">
-                          {group.title}
-                        </h3>
-                        <p className="mt-3 text-sm leading-7 text-black/68">
-                          {group.description}
-                        </p>
-                      </div>
-
-                      <div className="mt-6 space-y-6">
-                        {filteredPrograms.map((program, index) => (
-                          <div
-                            key={program.title}
-                            className="rounded-2xl border border-black/10 p-6"
-                          >
-                            <div className="flex items-center gap-3">
-                              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-black text-sm text-white">
-                                {index + 1}
-                              </span>
-                              <h4 className="text-lg font-medium">
-                                {program.title}
-                              </h4>
-                            </div>
-
-                            <p className="mt-2 text-sm text-black/70">
-                              {program.purpose}
-                            </p>
-
-                            <div className="mt-4 text-sm text-black/60">
-                              対象: {program.target} / 時間: {program.duration} /
-                              頻度: {program.frequency}
-                            </div>
-
-                            <ul className="mt-4 space-y-1 text-sm text-black/70">
-                              {program.structure.map((s, i) => (
-                                <li key={i}>・{s}</li>
-                              ))}
-                            </ul>
-
-                            <div className="mt-4 rounded-2xl bg-black/[0.03] p-4">
-                              <p className="text-xs uppercase tracking-[0.2em] text-black/45">
-                                Expected outcome
-                              </p>
-                              <p className="mt-2 text-sm leading-7 text-black/70">
-                                {program.expectedOutcome}
+                      <details
+                        className="rounded-[28px] border border-black/10 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)]"
+                        open={group.key === "family"}
+                      >
+                        <summary className="cursor-pointer list-none">
+                          <div className="flex items-start justify-between gap-6">
+                            <div className="max-w-3xl">
+                              <h3 className="text-xl font-medium tracking-tight">
+                                {group.title}
+                              </h3>
+                              <p className="mt-3 text-sm leading-7 text-black/68">
+                                {group.description}
                               </p>
                             </div>
 
-                            <div className="mt-4 flex flex-wrap gap-2">
-                              {program.connection.map((item) => (
-                                <span
-                                  key={item}
-                                  className="rounded-full bg-black/[0.04] px-3 py-1 text-xs text-black/60"
-                                >
-                                  {item}
-                                </span>
-                              ))}
-                            </div>
+                            <span className="rounded-full border border-black/10 px-3 py-1 text-xs text-black/60">
+                              {filteredPrograms.length} programs
+                            </span>
                           </div>
-                        ))}
-                      </div>
+                        </summary>
+
+                        <div className="mt-6 space-y-6">
+                          {filteredPrograms.map((program, index) => (
+                            <div
+                              key={program.title}
+                              className="rounded-2xl border border-black/10 p-6"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-black text-sm text-white">
+                                  {index + 1}
+                                </span>
+                                <h4 className="text-lg font-medium">{program.title}</h4>
+                              </div>
+
+                              <p className="mt-2 text-sm text-black/70">
+                                {program.purpose}
+                              </p>
+
+                              <div className="mt-4 text-sm text-black/60">
+                                対象: {program.target} / 時間: {program.duration} / 頻度:{" "}
+                                {program.frequency}
+                              </div>
+
+                              <ul className="mt-4 space-y-1 text-sm text-black/70">
+                                {program.structure.map((s, i) => (
+                                  <li key={i}>・{s}</li>
+                                ))}
+                              </ul>
+
+                              <div className="mt-4 rounded-2xl bg-black/[0.03] p-4">
+                                <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                                  Expected outcome
+                                </p>
+                                <p className="mt-2 text-sm leading-7 text-black/70">
+                                  {program.expectedOutcome}
+                                </p>
+                              </div>
+
+                              <div className="mt-4 flex flex-wrap gap-2">
+                                {program.connection.map((item) => (
+                                  <span
+                                    key={item}
+                                    className="rounded-full bg-black/[0.04] px-3 py-1 text-xs text-black/60"
+                                  >
+                                    {item}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </details>
                     </section>
                   );
                 })}
