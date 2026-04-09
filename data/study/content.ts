@@ -629,3 +629,42 @@ export function getItemsByCategory(category: StudyCategoryKey) {
 export function isStudyCategoryKey(value: string): value is StudyCategoryKey {
   return categoryOrder.includes(value as StudyCategoryKey);
 }
+
+export const sportsSampleEvents = [
+  {
+    id: "event-001",
+    title: "親子でからだを動かす体験会",
+    date: "2026-05-18",
+    location: "深谷市内公民館",
+    target: "親子",
+    fee: "無料",
+    organizer: "地域スポーツ団体",
+    summary:
+      "親子で一緒に体を動かしながら、日常の中で取り入れやすい運動を体験できるイベントです。",
+    applyMethod: "事前申込",
+  },
+  {
+    id: "event-002",
+    title: "シニア向けやさしい運動教室",
+    date: "2026-06-07",
+    location: "深谷市内体育施設",
+    target: "高齢者",
+    fee: "500円",
+    organizer: "地域健康づくりグループ",
+    summary:
+      "転倒予防や日常動作の維持につながる、やさしく続けやすい運動を行う教室です。",
+    applyMethod: "当日参加可",
+  },
+  {
+    id: "event-003",
+    title: "小学生向けスポーツチャレンジ",
+    date: "2026-06-22",
+    location: "深谷市内小学校体育館",
+    target: "小学生",
+    fee: "無料",
+    organizer: "学校連携スポーツ団体",
+    summary:
+      "遊びの要素を取り入れながら、さまざまな動きやスポーツにふれる体験イベントです。",
+    applyMethod: "事前申込",
+  },
+] as const;

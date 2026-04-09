@@ -625,6 +625,15 @@ export default async function StudyCategoryPage({
                   </Link>
                 </div>
               </div>
+
+              <div className="mt-6">
+                <Link
+                  href="/study/sports/events"
+                  className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
+                >
+                  地域のスポーツイベント一覧を見る
+                </Link>
+              </div>
             </div>
           </section>
         ) : null}
