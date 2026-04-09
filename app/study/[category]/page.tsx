@@ -49,44 +49,36 @@ export default async function StudyCategoryPage({
           Study
         </Link>
 
-        <section className="mt-8 max-w-3xl">
-          {category === "sports" ? (
-            <section className="mt-10">
-              <div className="rounded-[28px] border border-black/8 bg-black/[0.02] p-5 md:p-7">
-                <p className="text-sm uppercase tracking-[0.24em] text-black/45">
-                  Overview
-                </p>
-                <h2 className="mt-4 text-2xl font-medium tracking-tight">
-                  {sportsPublicIntro.title}
-                </h2>
-                <p className="mt-4 max-w-3xl text-sm leading-6 text-black/68">
-                  {sportsPublicIntro.description}
-                </p>
+        {category === "sports" ? (
+          <section className="mt-10">
+            <div className="rounded-[28px] border border-black/8 bg-black/[0.02] p-5 md:p-7">
+              <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+                Overview
+              </p>
+              <h2 className="mt-4 text-2xl font-medium tracking-tight">
+                {sportsPublicIntro.title}
+              </h2>
+              <p className="mt-4 max-w-3xl text-sm leading-6 text-black/68">
+                {sportsPublicIntro.description}
+              </p>
+
+              <div className="mt-5 space-y-3">
+                {sportsPublicIntro.points.map((point) => (
+                  <div
+                    key={point}
+                    className="rounded-2xl bg-white p-4 text-sm leading-6 text-black/72"
+                  >
+                    {point}
+                  </div>
+                ))}
               </div>
-            </section>
-          ) : null}
 
-          <p className="mt-12 text-sm uppercase tracking-[0.24em] text-black/45">
-            {categoryData.title}
-          </p>
-          <h1 className="mt-4 text-4xl font-medium tracking-tight md:text-6xl">
-            {categoryData.title}
-          </h1>
-          <p className="mt-6 text-base leading-8 text-black/68 md:text-lg">
-            {categoryData.heroDescription}
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {categoryData.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-black/[0.04] px-3 py-1 text-xs text-black/60"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </section>
+              <p className="mt-5 text-sm leading-6 text-black/56">
+                {sportsPublicIntro.note}
+              </p>
+            </div>
+          </section>
+        ) : null}
 
         {category === "sports" ? (
           <section className="mt-12">
