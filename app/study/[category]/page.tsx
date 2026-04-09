@@ -86,7 +86,7 @@ export default async function StudyCategoryPage({
               Navigation
             </p>
             <h2 className="mt-4 text-2xl font-medium tracking-tight">
-              誰に向けた内容か
+              それぞれのお立場に応じてご覧いただける内容です
             </h2>
 
             <div className="mt-6 grid gap-6 md:grid-cols-3">
