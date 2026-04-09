@@ -549,6 +549,32 @@ export default async function StudyCategoryPage({
 
         {category === "sports" ? (
           <section className="mt-16">
+            <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-7">
+              <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+                Request
+              </p>
+              <h2 className="mt-4 text-2xl font-medium tracking-tight">
+                ご要望・ご相談はこちらから
+              </h2>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
+                深谷市のスポーツ推進に関するご要望やご相談がありましたら、
+                専用フォームからお送りください。
+              </p>
+
+              <div className="mt-6">
+                <Link
+                  href="/study/sports/request"
+                  className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
+                >
+                  フォームを開く
+                </Link>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {category === "sports" ? (
+          <section className="mt-16">
             <ShareMessageCard
               title={sportsShareMessage.title}
               description={sportsShareMessage.description}
