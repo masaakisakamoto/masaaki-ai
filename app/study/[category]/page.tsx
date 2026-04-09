@@ -639,6 +639,9 @@ export default async function StudyCategoryPage({
                 <p className="text-xs uppercase tracking-[0.2em] text-black/45">
                   Latest events
                 </p>
+                <p className="mt-2 text-xs leading-6 text-black/45">
+                  ※ 現在は表示例としてのテストデータを掲載しています。
+                </p>
                 <ul className="mt-3 space-y-2 text-sm leading-6 text-black/72">
                   {sportsSampleEvents.slice(0, 3).map((event) => (
                     <li key={event.id}>
