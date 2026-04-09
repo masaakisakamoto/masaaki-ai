@@ -651,7 +651,6 @@ export default async function StudyCategoryPage({
             <ShareMessageCard
               title={sportsShareMessage.title}
               description={sportsShareMessage.description}
-              shortMessage={sportsShareMessage.shortMessage}
             />
           </section>
         ) : null}
