@@ -45,15 +45,24 @@ export default function SportsEventsPage() {
                   {event.title}
                 </h2>
 
-                <div className="mt-4 space-y-2 text-sm leading-7 text-black/68">
-                  <p>場所: {event.location}</p>
-                  <p>対象: {event.target}</p>
-                  <p>参加費: {event.fee}</p>
-                  <p>主催: {event.organizer}</p>
-                  <p>申込方法: {event.applyMethod}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="rounded-full bg-black/[0.04] px-3 py-1 text-xs text-black/60">
+                    対象: {event.target}
+                  </span>
+                  <span className="rounded-full bg-black/[0.04] px-3 py-1 text-xs text-black/60">
+                    参加費: {event.fee}
+                  </span>
+                  <span className="rounded-full bg-black/[0.04] px-3 py-1 text-xs text-black/60">
+                    {event.applyMethod}
+                  </span>
                 </div>
 
-                <p className="mt-4 text-sm leading-7 text-black/72">
+                <div className="mt-4 space-y-2 text-sm leading-7 text-black/68">
+                  <p>場所: {event.location}</p>
+                  <p>主催: {event.organizer}</p>
+                </div>
+
+                <p className="mt-5 text-sm leading-7 text-black/72">
                   {event.summary}
                 </p>
               </article>
