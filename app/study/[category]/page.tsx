@@ -575,6 +575,32 @@ export default async function StudyCategoryPage({
 
         {category === "sports" ? (
           <section className="mt-16">
+            <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-7">
+              <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+                Organization
+              </p>
+              <h2 className="mt-4 text-2xl font-medium tracking-tight">
+                イベント掲載を希望する団体の登録
+              </h2>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
+                地域で活動している団体が、今後イベント掲載を申請できるようにするための登録フォームです。
+                まずは団体情報の登録をお願いします。
+              </p>
+
+              <div className="mt-6">
+                <Link
+                  href="/study/sports/organizations/register"
+                  className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
+                >
+                  団体登録フォームを開く
+                </Link>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {category === "sports" ? (
+          <section className="mt-16">
             <ShareMessageCard
               title={sportsShareMessage.title}
               description={sportsShareMessage.description}
