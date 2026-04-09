@@ -23,6 +23,12 @@ export default function SportsEventsPage() {
             地域で行われるスポーツイベントを、わかりやすく見られる形でまとめていくための一覧ページです。
             今後、登録団体による掲載申請をもとに、内容を少しずつ充実させていきます。
           </p>
+
+          <div className="mt-6 rounded-2xl bg-black/[0.03] p-4">
+            <p className="text-sm leading-7 text-black/60">
+              ※ 現在は表示例としてのテストデータを掲載しています。
+            </p>
+          </div>
         </section>
 
         <section className="mt-16">
