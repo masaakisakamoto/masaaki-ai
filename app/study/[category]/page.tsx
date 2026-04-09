@@ -549,76 +549,81 @@ export default async function StudyCategoryPage({
 
         {category === "sports" ? (
           <section className="mt-16">
-            <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-7">
-              <p className="text-sm uppercase tracking-[0.24em] text-black/45">
-                Request
-              </p>
-              <h2 className="mt-4 text-2xl font-medium tracking-tight">
-                ご要望・ご相談はこちらから
-              </h2>
-              <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
-                深谷市のスポーツ推進に関するご要望やご相談がありましたら、
-                専用フォームからお送りください。
-              </p>
+            <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+              Participation
+            </p>
+            <h2 className="mt-4 text-2xl font-medium tracking-tight">
+              ご相談・団体登録・掲載申請
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
+              深谷市のスポーツ推進に関するご相談や、
+              地域で活動している団体の登録、
+              イベント掲載の申請はこちらから受け付けています。
+            </p>
 
-              <div className="mt-6">
-                <Link
-                  href="/study/sports/request"
-                  className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
-                >
-                  フォームを開く
-                </Link>
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+                <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+                  Request
+                </p>
+                <h3 className="mt-4 text-xl font-medium tracking-tight">
+                  ご要望・ご相談
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-black/68">
+                  深谷市のスポーツ推進に関するお気づきのことや、
+                  ご要望・ご相談をお送りいただけます。
+                </p>
+
+                <div className="mt-6">
+                  <Link
+                    href="/study/sports/request"
+                    className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
+                  >
+                    フォームを開く
+                  </Link>
+                </div>
               </div>
-            </div>
-          </section>
-        ) : null}
 
-        {category === "sports" ? (
-          <section className="mt-16">
-            <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-7">
-              <p className="text-sm uppercase tracking-[0.24em] text-black/45">
-                Organization
-              </p>
-              <h2 className="mt-4 text-2xl font-medium tracking-tight">
-                イベント掲載を希望する団体の登録
-              </h2>
-              <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
-                地域で活動している団体が、今後イベント掲載を申請できるようにするための登録フォームです。
-                まずは団体情報の登録をお願いします。
-              </p>
+              <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+                <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+                  Organization
+                </p>
+                <h3 className="mt-4 text-xl font-medium tracking-tight">
+                  団体登録
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-black/68">
+                  地域で活動している団体が、今後イベント掲載を申請できるようにするための登録フォームです。
+                </p>
 
-              <div className="mt-6">
-                <Link
-                  href="/study/sports/organizations/register"
-                  className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
-                >
-                  団体登録フォームを開く
-                </Link>
+                <div className="mt-6">
+                  <Link
+                    href="/study/sports/organizations/register"
+                    className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
+                  >
+                    団体登録フォームを開く
+                  </Link>
+                </div>
               </div>
-            </div>
-          </section>
-        ) : null}
 
-        {category === "sports" ? (
-          <section className="mt-16">
-            <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)] md:p-7">
-              <p className="text-sm uppercase tracking-[0.24em] text-black/45">
-                Event request
-              </p>
-              <h2 className="mt-4 text-2xl font-medium tracking-tight">
-                イベント掲載申請はこちら
-              </h2>
-              <p className="mt-4 max-w-3xl text-sm leading-7 text-black/68">
-                登録済み団体のイベントを、地域の中でわかりやすく紹介していくための掲載申請フォームです。
-              </p>
+              <div className="rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+                <p className="text-sm uppercase tracking-[0.24em] text-black/45">
+                  Event request
+                </p>
+                <h3 className="mt-4 text-xl font-medium tracking-tight">
+                  イベント掲載申請
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-black/68">
+                  登録済み団体のイベントを、地域の中でわかりやすく紹介していくための掲載申請フォームです。
+                </p>
 
-              <div className="mt-6">
-                <Link
-                  href="/study/sports/events/request"
-                  className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
-                >
-                  イベント掲載申請フォームを開く
-                </Link>
+                <div className="mt-6">
+                  <Link
+                    href="/study/sports/events/request"
+                    className="text-sm text-black/75 underline underline-offset-4 transition hover:text-black"
+                  >
+                    イベント掲載申請フォームを開く
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
