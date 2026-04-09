@@ -18,6 +18,7 @@ import {
   sportsPublicIntro,
   sportsShareMessage,
   sportsFeaturedAthletes,
+  sportsSampleEvents,
 } from "@/data/study/content";
 
 export function generateStaticParams() {
@@ -633,6 +634,18 @@ export default async function StudyCategoryPage({
                 >
                   地域のスポーツイベント一覧を見る
                 </Link>
+              </div>
+              <div className="mt-6 rounded-2xl bg-black/[0.03] p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-black/45">
+                  Latest events
+                </p>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-black/72">
+                  {sportsSampleEvents.slice(0, 3).map((event) => (
+                    <li key={event.id}>
+                      ・{event.date.replace(/^\d{4}-/, "").replace("-", "/")}　{event.title}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </section>
