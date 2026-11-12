@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import StudyItemCard from "@/components/study/StudyItemCard";
 import ShareMessageCard from "@/components/study/ShareMessageCard";
 import SportsGuide from "@/components/study/SportsGuide";
+import { isSportsGuideEnabled } from "@/lib/study/guide-availability";
 import {
   categories,
   categoryOrder,
@@ -145,7 +146,9 @@ export default async function StudyCategoryPage({
           </section>
         ) : null}
 
-        {category === "sports" ? <SportsGuide /> : null}
+        {category === "sports" ? (
+          <SportsGuide enabled={isSportsGuideEnabled()} />
+        ) : null}
 
         {category === "sports" ? (
           <section id="sports-city-application" className="mt-16 scroll-mt-24">
