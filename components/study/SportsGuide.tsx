@@ -36,7 +36,11 @@ export default function SportsGuide() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(`エラーが発生しました (${res.status})`);
+        setError(
+          typeof data?.error === "string"
+            ? data.error
+            : `エラーが発生しました (${res.status})`
+        );
         return;
       }
 
@@ -81,6 +85,7 @@ export default function SportsGuide() {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            maxLength={500}
             placeholder="例：市民向けの内容は？"
             className="flex-1 rounded-full border border-black/10 px-4 py-2 text-sm"
           />

@@ -1,28 +1,26 @@
 import { readFile } from "fs/promises";
 import path from "path";
 
-type FeedbackEntry = {
-  id: string;
-  createdAt: string;
-  type: string;
-  area: string;
-  audience: string;
-  pageUrl?: string;
-  name?: string;
-  email?: string;
-  message: string;
-  status: "new";
-};
-
 type StructuredAnswerFeedbackPayload = {
   schemaVersion?: number;
   kind?: string;
   question?: string;
   answer?: unknown;
-  usefulness?: number;
-  bestAudience?: string | null;
-  missing?: string | null;
+  usefulness?: unknown;
+  bestAudience?: unknown;
+  missing?: unknown;
 };
+
+export type FeedbackSummary = {
+  count: number;
+  summaryText: string;
+};
+
+// 集計に使ってよい値。ここにない値は数えない。
+// 要約は AI への指示文に入るので、利用者が送った文字列をそのまま通さない。
+const AUDIENCE_KEYS: readonly string[] = ["citizen", "school", "government"];
+const MISSING_KEYS: readonly string[] = ["practice", "medical", "local"];
+const USEFULNESS_VALUES: readonly number[] = [1, 2, 3];
 
 const feedbackFile = path.join(
   process.cwd(),
@@ -44,22 +42,21 @@ function topKey(record: Record<string, number>): string | null {
   return first?.[0] ?? null;
 }
 
-export async function getRecentFeedbackSummary(limit = 8) {
-  let raw = "[]";
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
 
-  try {
-    raw = await readFile(feedbackFile, "utf-8");
-  } catch {
-    return {
-      count: 0,
-      summaryText: "",
-    };
-  }
+/** 保存されたフィードバックから、AI への指示文に入れる要約を作る。 */
+export function summarizeFeedback(entries: unknown, limit = 8): FeedbackSummary {
+  const list = Array.isArray(entries) ? entries : [];
 
-  const entries = safeParseJSON<FeedbackEntry[]>(raw) ?? [];
-
-  const targets = entries
-    .filter((entry) => entry.type === "structured-answer" && entry.area === "sports")
+  const targets = list
+    .filter(
+      (entry): entry is Record<string, unknown> =>
+        isRecord(entry) &&
+        entry.type === "structured-answer" &&
+        entry.area === "sports"
+    )
     .slice(0, limit);
 
   if (targets.length === 0) {
@@ -76,21 +73,32 @@ export async function getRecentFeedbackSummary(limit = 8) {
   const missingCount: Record<string, number> = {};
 
   for (const entry of targets) {
+    if (typeof entry.message !== "string") continue;
+
     const parsed = safeParseJSON<StructuredAnswerFeedbackPayload>(entry.message);
 
-    if (!parsed) continue;
+    if (!isRecord(parsed)) continue;
 
-    if (typeof parsed.usefulness === "number") {
+    if (
+      typeof parsed.usefulness === "number" &&
+      USEFULNESS_VALUES.includes(parsed.usefulness)
+    ) {
       usefulnessSum += parsed.usefulness;
       usefulnessCount += 1;
     }
 
-    if (parsed.bestAudience) {
+    if (
+      typeof parsed.bestAudience === "string" &&
+      AUDIENCE_KEYS.includes(parsed.bestAudience)
+    ) {
       audienceCount[parsed.bestAudience] =
         (audienceCount[parsed.bestAudience] ?? 0) + 1;
     }
 
-    if (parsed.missing) {
+    if (
+      typeof parsed.missing === "string" &&
+      MISSING_KEYS.includes(parsed.missing)
+    ) {
       missingCount[parsed.missing] =
         (missingCount[parsed.missing] ?? 0) + 1;
     }
@@ -137,4 +145,21 @@ export async function getRecentFeedbackSummary(limit = 8) {
     count: targets.length,
     summaryText,
   };
+}
+
+export async function getRecentFeedbackSummary(
+  limit = 8
+): Promise<FeedbackSummary> {
+  let raw = "[]";
+
+  try {
+    raw = await readFile(feedbackFile, "utf-8");
+  } catch {
+    return {
+      count: 0,
+      summaryText: "",
+    };
+  }
+
+  return summarizeFeedback(safeParseJSON<unknown>(raw), limit);
 }
