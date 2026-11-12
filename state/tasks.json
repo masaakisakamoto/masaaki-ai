@@ -80,7 +80,7 @@
       "status": "todo",
       "executor": "human",
       "verify": "設定ファイルが1つになり、ビルドとデプロイが通る",
-      "notes": "js は output が standalone、ts は export で、内容が食い違っている。どちらが効いているかは確かめていない。export は静的な書き出しなので、POST を受ける API とは両立しないはず。"
+      "notes": "js は output が standalone、ts は export で、内容が食い違っている。Vercel のビルドは API つきで通っているので、Vercel では js が効いているとみられる。export は静的な書き出しなので、POST を受ける API とは両立しないはず。T011 と合わせて決める。"
     },
     {
       "id": "T010",
@@ -90,6 +90,24 @@
       "executor": "human",
       "verify": "README を読むと、何のサイトで、どう動かすかがわかる",
       "notes": "今は create-next-app の初期の文面のまま。"
+    },
+    {
+      "id": "T011",
+      "title": "Cloudflare Pages の連携を、直すか外すかを決める",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "プルリクエストに、Cloudflare Pages の失敗のチェックが出ない",
+      "notes": "main でも 2026-04-09 のコミットからビルドが失敗している。使っていないなら連携を外す。失敗の表示に慣れると、本当の失敗を見落とす。"
+    },
+    {
+      "id": "T012",
+      "title": "Vercel のプロジェクトが2つあるので、本番がどちらかを確かめ、不要なほうを消す",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "Vercel のプロジェクトが1つになり、プルリクエストに出る Vercel のチェックも1つになる",
+      "notes": "masaaki-ai と masaaki-ai-q7ab の両方にデプロイされている。両方に OpenAI のキーが入っていれば、費用のかかる入口が2つ公開されていることになる。回数制限も別々に数える。"
     }
   ]
 }
