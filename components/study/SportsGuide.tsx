@@ -93,6 +93,7 @@ export default function SportsGuide({ enabled = true }: Props) {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                maxLength={500}
                 placeholder="例：市民向けの内容は？"
                 className="flex-1 rounded-full border border-black/10 px-4 py-2 text-sm"
               />

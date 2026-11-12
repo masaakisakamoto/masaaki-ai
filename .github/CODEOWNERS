@@ -1,0 +1,17 @@
+# 指示、設定、検査、公開APIの変更は、必ず担当者が確認する。
+#
+# チームができたら、@組織名/チーム名 に変える。
+#
+# ひとりの間は、ルールセットの「コードオーナーのレビューを必須にする」をオフのままにする。
+# プルリクエストの作成者は、自分の変更を承認できないため。詳しくは HARNESS.md。
+
+/AGENTS.md            @masaakisakamoto
+/CLAUDE.md            @masaakisakamoto
+/.agents/             @masaakisakamoto
+/.claude/             @masaakisakamoto
+/.mcp.json            @masaakisakamoto
+/.github/             @masaakisakamoto
+/scripts/             @masaakisakamoto
+/docs/risk-tiers.md   @masaakisakamoto
+/app/api/             @masaakisakamoto
+/lib/security/        @masaakisakamoto

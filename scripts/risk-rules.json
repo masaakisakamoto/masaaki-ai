@@ -1,0 +1,80 @@
+{
+  "_comment": "パスのパターンでリスク区分を決める。high に当たれば high、そうでなく low に当たれば low、どちらにも当たらなければ medium。** はフォルダをまたぐ任意の文字列、* はフォルダをまたがない任意の文字列。大文字と小文字は区別しない。",
+  "version": 1,
+  "high": [
+    "**/migrations/**",
+    "**/migrate/**",
+    "**/*.sql",
+    "**/schema.prisma",
+
+    "**/auth/**",
+    "**/authentication/**",
+    "**/authorization/**",
+    "**/permissions/**",
+    "**/security/**",
+
+    "**/billing/**",
+    "**/payment/**",
+    "**/payments/**",
+    "**/subscription/**",
+    "**/subscriptions/**",
+
+    "**/infra/**",
+    "**/infrastructure/**",
+    "**/terraform/**",
+    "**/*.tf",
+    "**/*.tfvars",
+    "**/k8s/**",
+    "**/helm/**",
+
+    "**/.env",
+    "**/.env.*",
+
+    "**/Info.plist",
+    "**/*.entitlements",
+    "**/AndroidManifest.xml",
+    "**/fastlane/**",
+    "**/eas.json",
+
+    "app/api/**",
+    "lib/security/**",
+    "data/feedback/**",
+    "vercel.json",
+    "next.config.*",
+
+    ".github/**",
+    "**/AGENTS.md",
+    "**/AGENTS.override.md",
+    "**/CLAUDE.md",
+    "**/CLAUDE.local.md",
+    "**/GEMINI.md",
+    "**/SKILL.md",
+    "**/.mcp.json",
+    ".agents/**",
+    ".claude/**",
+    ".codex/**",
+    ".cursor/**",
+    "scripts/check.py",
+    "scripts/risk_tier.py",
+    "scripts/risk-rules.json",
+    "scripts/link-skills.sh",
+    "docs/risk-tiers.md"
+  ],
+  "low": [
+    "docs/**",
+    "state/**",
+    "**/*.md",
+
+    "**/test/**",
+    "**/tests/**",
+    "**/__tests__/**",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*_test.*",
+    "**/test_*.py",
+    "**/*Test.java",
+    "**/*Test.kt",
+    "**/*Tests.swift",
+    "**/*Tests.cs"
+  ]
+}

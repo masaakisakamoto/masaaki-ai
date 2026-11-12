@@ -6,6 +6,14 @@ import {
   sportsCityApplications,
   sportsPrograms,
 } from "@/data/study/content";
+import { createRateLimiter } from "@/lib/security/rate-limit";
+import {
+  clientKeyFrom,
+  isCrossSiteRequest,
+  isJsonRequest,
+  readJsonBody,
+} from "@/lib/security/request";
+import { validateGuideMessage } from "@/lib/security/validate";
 import { getRecentFeedbackSummary } from "@/lib/study/feedback";
 import {
   isSportsGuideEnabled,
@@ -18,6 +26,37 @@ import {
 } from "@/lib/study/types";
 
 export const runtime = "nodejs";
+
+const MINUTE = 60 * 1000;
+const DAY = 24 * 60 * MINUTE;
+
+// この API は呼ばれるたびに OpenAI の費用がかかる。数字は運用に合わせて調整する。
+// メモリ上の制限なので、インスタンスをまたぐ上限にはならない（docs/api-guard.md）。
+const limiter = createRateLimiter({
+  perClient: [
+    { limit: 5, windowMs: MINUTE },
+    { limit: 30, windowMs: DAY },
+  ],
+  global: [
+    { limit: 20, windowMs: MINUTE },
+    { limit: 300, windowMs: DAY },
+  ],
+});
+
+const MAX_BODY_BYTES = 4 * 1024;
+const MAX_OUTPUT_TOKENS = 1500;
+const OPENAI_TIMEOUT_MS = 25 * 1000;
+
+function reject(
+  status: number,
+  error: string,
+  headers?: Record<string, string>
+) {
+  return NextResponse.json(
+    { structured: null, raw: "", error },
+    { status, headers }
+  );
+}
 
 function buildFallbackAnswer(message: string): StructuredAnswer {
   return {
@@ -50,28 +89,47 @@ function buildFallbackAnswer(message: string): StructuredAnswer {
 export async function POST(req: Request) {
   // 一時停止中は、OpenAI を呼ばずに案内だけを返す（lib/study/guide-availability.ts）
   if (!isSportsGuideEnabled()) {
-    return NextResponse.json(
-      { structured: null, raw: "", error: SPORTS_GUIDE_PAUSED_MESSAGE },
-      { status: 503 }
+    return reject(503, SPORTS_GUIDE_PAUSED_MESSAGE);
+  }
+
+  if (isCrossSiteRequest(req.headers)) {
+    return reject(403, "このサイトのページからご利用ください。");
+  }
+  if (!isJsonRequest(req.headers)) {
+    return reject(415, "送信内容の形式が正しくありません。");
+  }
+
+  const body = await readJsonBody(req, MAX_BODY_BYTES);
+  if (!body.ok) {
+    return reject(body.status, body.error);
+  }
+
+  const question = validateGuideMessage(
+    (body.value as { message?: unknown } | null)?.message
+  );
+  if (!question.ok) {
+    return reject(400, question.error);
+  }
+  const userMessage = question.value;
+
+  if (!process.env.OPENAI_API_KEY) {
+    console.error("[api/sports-guide] OPENAI_API_KEY is not set");
+    return reject(503, "現在、AIガイドを利用できません。");
+  }
+
+  // 検証を通った質問だけを数える。ここを通ると OpenAI を呼ぶ。
+  const decision = limiter.check(clientKeyFrom(req.headers));
+  if (!decision.allowed) {
+    return reject(
+      429,
+      "利用が集中しています。少し時間をおいてからお試しください。",
+      { "Retry-After": String(decision.retryAfterSeconds) }
     );
   }
 
   try {
-    const { message } = await req.json();
-
-    const userMessage = String(message ?? "").trim();
     const feedback = await getRecentFeedbackSummary(8);
     const audienceRouting = routeAudience(userMessage);
-
-    if (!userMessage) {
-      return NextResponse.json(
-        {
-          structured: buildFallbackAnswer(""),
-          raw: "質問が空です。",
-        },
-        { status: 400 }
-      );
-    }
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -79,8 +137,10 @@ export async function POST(req: Request) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
+      signal: AbortSignal.timeout(OPENAI_TIMEOUT_MS),
       body: JSON.stringify({
         model: "gpt-4o-mini",
+        max_tokens: MAX_OUTPUT_TOKENS,
         response_format: { type: "json_object" },
         messages: [
           {
@@ -192,6 +252,10 @@ ${feedback.summaryText || "まだフィードバックはありません。"}
         ],
       }),
     });
+
+    if (!response.ok) {
+      console.error("[api/sports-guide] upstream status", response.status);
+    }
 
     const data = await response.json();
 
