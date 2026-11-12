@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "T001",
+      "title": "AGENTS.md の【要記入】を自分の言葉で埋める",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "python3 scripts/check.py で AGENTS.md の記入もれの警告が出ない",
+      "notes": "プロジェクトの説明は人が書く。AIに生成させない。コマンドは package.json から写してあるので、合っているかを確かめる。"
+    },
+    {
+      "id": "T002",
+      "title": "scripts/risk-rules.json がこのリポジトリの実感と合っているかを確かめる",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "代表的なファイルを python3 scripts/risk_tier.py --files に渡し、期待どおりの区分になる",
+      "notes": "app/api/、lib/security/、data/feedback/、vercel.json、next.config.* を high に足してある。"
+    },
+    {
+      "id": "T003",
+      "title": "main にルールセットを設定する",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "main への直接pushが拒否され、harness-check が必須のチェックになっている",
+      "notes": "設定の内容は HARNESS.md の「GitHub の設定」。公開リポジトリなので無料プランで使える。"
+    },
+    {
+      "id": "T004",
+      "title": "lint を CI に足す",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "プルリクエストで lint が自動で走り、失敗するとマージできない",
+      "notes": "テストとビルドは app-check で走る。lint は今の main で通るかを確かめていないので、まだ入れていない。.github/ の変更なので high。"
+    },
+    {
+      "id": "T005",
+      "title": "テストが薄い箇所を1つ選び、テストを追加する",
+      "risk": "low",
+      "status": "todo",
+      "executor": "agent",
+      "verify": "追加したテストが通る。対象のコードをわざと壊すとテストが落ちることも確かめる",
+      "notes": "候補は lib/study/audience.ts の routeAudience。tests/ の既存のテストと同じ書き方にする。"
+    },
+    {
+      "id": "T006",
+      "title": "低リスクの課題を2〜3本、並行でエージェントに任せ、レビューにかかった時間を記録する",
+      "risk": "low",
+      "status": "todo",
+      "executor": "human",
+      "verify": "state/progress/ に、本数とレビュー時間の記録がある",
+      "notes": "レビューが追いつく本数が、並行数の上限になる。"
+    },
+    {
+      "id": "T007",
+      "title": "OpenAI の管理画面で、このサイトが使うキーに利用上限を設定する",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "管理画面で、月ごとの上限が設定されている",
+      "notes": "コード側の回数制限はメモリ上にあり、費用の本当の上限にはならない。docs/api-guard.md。"
+    },
+    {
+      "id": "T008",
+      "title": "フィードバックの保存先を決める",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "本番でフォームを送り、送った内容をあとから読める",
+      "notes": "今は data/feedback/entries.json に書き込む。Vercel では保存できていない可能性がある。氏名、メール、電話番号、住所を受け取るので、保存先と保存期間、閲覧できる人を決める。"
+    },
+    {
+      "id": "T009",
+      "title": "next.config.js と next.config.ts のどちらを使うかを決め、片方を消す",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "設定ファイルが1つになり、ビルドとデプロイが通る",
+      "notes": "js は output が standalone、ts は export で、内容が食い違っている。どちらが効いているかは確かめていない。export は静的な書き出しなので、POST を受ける API とは両立しないはず。"
+    },
+    {
+      "id": "T010",
+      "title": "README.md を実態に合わせて書き直す",
+      "risk": "low",
+      "status": "todo",
+      "executor": "human",
+      "verify": "README を読むと、何のサイトで、どう動かすかがわかる",
+      "notes": "今は create-next-app の初期の文面のまま。"
+    }
+  ]
+}

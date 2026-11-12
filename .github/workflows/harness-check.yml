@@ -1,0 +1,63 @@
+name: harness-check
+
+# AIエージェント向けの指示・知識・状態のファイルを、プルリクエストごとに検査する。
+# このファイルと scripts/ の変更は high として扱う（docs/risk-tiers.md）。
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: harness-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  harness-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # タグではなくコミットのSHAで固定すると、より安全（HARNESS.md）
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: ハーネスの検査
+        run: python3 scripts/check.py
+
+      - name: リスク区分の表示
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          {
+            echo '```'
+            python3 scripts/risk_tier.py --base "origin/$BASE_REF"
+            echo '```'
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+  # アプリ本体のテストとビルド。npm test には Node 22.18 以上が必要。
+  app-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Node のバージョン
+        run: node --version
+
+      - name: テスト
+        run: npm test
+
+      - name: 依存を入れる
+        run: npm ci
+
+      - name: ビルド
+        run: npm run build
