@@ -15,6 +15,10 @@ import {
 } from "@/lib/security/request";
 import { validateGuideMessage } from "@/lib/security/validate";
 import { getRecentFeedbackSummary } from "@/lib/study/feedback";
+import {
+  isSportsGuideEnabled,
+  SPORTS_GUIDE_PAUSED_MESSAGE,
+} from "@/lib/study/guide-availability";
 import { routeAudience } from "@/lib/study/audience";
 import {
   isStructuredAnswer,
@@ -83,6 +87,11 @@ function buildFallbackAnswer(message: string): StructuredAnswer {
 }
 
 export async function POST(req: Request) {
+  // 一時停止中は、OpenAI を呼ばずに案内だけを返す（lib/study/guide-availability.ts）
+  if (!isSportsGuideEnabled()) {
+    return reject(503, SPORTS_GUIDE_PAUSED_MESSAGE);
+  }
+
   if (isCrossSiteRequest(req.headers)) {
     return reject(403, "このサイトのページからご利用ください。");
   }

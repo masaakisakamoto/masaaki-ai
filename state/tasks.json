@@ -108,6 +108,15 @@
       "executor": "human",
       "verify": "Vercel のプロジェクトが1つになり、プルリクエストに出る Vercel のチェックも1つになる",
       "notes": "masaaki-ai と masaaki-ai-q7ab の両方にデプロイされている。両方に OpenAI のキーが入っていれば、費用のかかる入口が2つ公開されていることになる。回数制限も別々に数える。"
+    },
+    {
+      "id": "T013",
+      "title": "AIガイドを再開するかを決め、再開するなら SPORTS_GUIDE_ENABLED=true を設定する",
+      "risk": "high",
+      "status": "todo",
+      "executor": "human",
+      "verify": "本番のスポーツのページで質問でき、6回目の質問が断られる",
+      "notes": "今は既定で止まっている。再開の前に T007（利用上限）を済ませる。T012（プロジェクトの整理）も先に済ませると、入口が1つになる。手順は docs/api-guard.md。"
     }
   ]
 }
